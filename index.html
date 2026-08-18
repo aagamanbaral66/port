@@ -221,6 +221,37 @@
   .tl-item.is-future h3{ color:var(--muted); }
   .tl-item.is-future::before{ background:transparent; border:2px solid var(--amber); }
 
+  .tl-fork-label{
+    display:flex; align-items:center; gap:12px;
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.14em;
+    color:var(--muted); margin:0 0 24px 34px; max-width:640px;
+  }
+  .tl-fork-label::before, .tl-fork-label::after{
+    content:""; flex:1; height:1px; background:var(--line-dim);
+  }
+  .tl-branches{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+    max-width:900px; margin-left:0;
+  }
+  .tl-branch{ min-width:0; }
+  .tl-branch-head{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.1em;
+    color:var(--amber); margin-bottom:20px; padding-bottom:12px;
+    border-bottom:1px solid var(--line-dim);
+  }
+  .tl-branch-head .branch-id{
+    border:1px solid var(--amber); padding:2px 7px; color:var(--amber);
+  }
+  .tl-branch .tl-list{ border-left:2px solid var(--line-dim); max-width:none; }
+  .tl-branch.is-alt .tl-list{ border-left-style:dashed; }
+  .tl-branch.is-alt .tl-item::before{ border:2px solid var(--cyan); background:transparent; }
+  .tl-branch.is-alt .tl-label{ color:var(--cyan); }
+
+  @media (max-width:700px){
+    .tl-branches{ grid-template-columns:1fr; gap:36px; }
+  }
+
   /* ---------- PROJECTS ---------- */
   .project-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:22px; }
   .project-card{
@@ -575,17 +606,43 @@
           <h3>Pulchowk Campus</h3>
           <p>BE Aerospace Engineering, IOE, Tribhuvan University. Year one, systems booting up.</p>
         </li>
-        <li class="tl-item is-future">
-          <span class="tl-label mono">WP04</span>
-          <h3>Master's — Astrophysics</h3>
-          <p>Aiming for IUCAA, IISc, or further out — still narrowing down the shortlist.</p>
-        </li>
-        <li class="tl-item is-future">
-          <span class="tl-label mono">WP05</span>
-          <h3>PhD / Space Sector</h3>
-          <p>Research or industry. Airbus is the nearer waypoint, via Pulchowk's direct MOU pipeline.</p>
-        </li>
       </ol>
+
+      <p class="tl-fork-label">FORK — POST-BACHELOR'S</p>
+
+      <div class="tl-branches reveal">
+        <div class="tl-branch">
+          <div class="tl-branch-head"><span class="branch-id">A</span><span>RESEARCH TRACK</span></div>
+          <ol class="tl-list">
+            <li class="tl-item is-future">
+              <span class="tl-label mono">WP04A</span>
+              <h3>Master's — Astrophysics</h3>
+              <p>Aiming for IUCAA, IISc, or further out — still narrowing down the shortlist.</p>
+            </li>
+            <li class="tl-item is-future">
+              <span class="tl-label mono">WP05A</span>
+              <h3>PhD / Space Sector</h3>
+              <p>Research or industry role on the space side, after the Master's.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="tl-branch is-alt">
+          <div class="tl-branch-head"><span class="branch-id">B</span><span>DIRECT-TO-INDUSTRY</span></div>
+          <ol class="tl-list">
+            <li class="tl-item is-future">
+              <span class="tl-label mono">WP04B</span>
+              <h3>Airbus — straight from Bachelor's</h3>
+              <p>Skip the Master's, go straight for Airbus via Pulchowk's direct MOU-based recruitment pipeline.</p>
+            </li>
+            <li class="tl-item is-future">
+              <span class="tl-label mono">WP05B</span>
+              <h3>Grow inside Airbus</h3>
+              <p>Build depth on the job instead of in a lab — figure out the ceiling from the inside.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -614,8 +671,8 @@
           <div class="project-resources">
             <div class="resource-label"><span>RESOURCES / FILES</span></div>
             <div class="resource-row">
-              <a class="resource-link is-empty" href="https://github.com/aagamanbaral66/sketches/blob/main/fan_switch_bt.ino">↗ GitHub</a>
-              <a class="resource-link is-empty" href="https://wokwi.com/projects/472703942605684737" target="_blank">◇ Schematic</a>
+              <a class="resource-link" href="https://github.com/aagamanbaral66/sketches/blob/main/fan_switch_bt.ino" target="_blank" rel="noopener">↗ GitHub</a>
+              <a class="resource-link" href="https://wokwi.com/projects/472703942605684737" target="_blank" rel="noopener">◇ Schematic</a>
             </div>
           </div>
         </article>
