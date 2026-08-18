@@ -249,14 +249,26 @@
   .lab-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; }
   .lab-panel{
     border:1px solid var(--line-dim); background:var(--bg-panel); padding:26px;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .lab-panel:hover{
+    transform:translateY(-4px);
+    border-color:var(--cyan);
+    box-shadow:0 12px 28px rgba(0,0,0,0.16);
   }
   .lab-panel h3{ font-size:1.06rem; margin-bottom:16px; }
   .lab-panel p{ color:var(--muted); font-size:0.92rem; max-width:60ch; }
   .status-list{ margin-top:20px; border-top:1px solid var(--line-dim); }
   .status-item{
     display:flex; align-items:center; justify-content:space-between; gap:16px;
-    padding:12px 0; border-bottom:1px solid var(--line-dim);
+    padding:12px 8px; border-bottom:1px solid var(--line-dim);
     font-family:var(--font-mono); font-size:0.74rem;
+    transition:padding-left .2s ease, padding-right .2s ease, background .2s ease;
+  }
+  .status-item:hover{
+    padding-left:12px;
+    padding-right:12px;
+    background:rgba(127,211,232,0.04);
   }
   .status-item span:first-child{ color:var(--line); letter-spacing:0.05em; }
   .status-badge{ color:var(--cyan); letter-spacing:0.08em; }
@@ -265,6 +277,13 @@
   .interest-chip{
     border:1px solid var(--line-dim); padding:11px 12px;
     font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.05em; color:var(--muted);
+    transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+  }
+  .interest-chip:hover{
+    transform:translateY(-2px);
+    border-color:var(--cyan);
+    background:rgba(127,211,232,0.06);
+    color:var(--line);
   }
   .lab-note{ margin-top:18px; color:var(--muted); font-family:var(--font-mono); font-size:0.7rem; }
   .fig-tag{
@@ -283,6 +302,12 @@
   .offduty-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
   .offduty-card{
     border:1px solid var(--line-dim); padding:30px; background:var(--bg-panel-2);
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .offduty-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--cyan);
+    box-shadow:0 12px 28px rgba(0,0,0,0.16);
   }
   .offduty-card .eyebrow{ margin-bottom:14px; }
   .offduty-card h3{ font-size:1.15rem; font-weight:600; margin-bottom:12px; }
@@ -609,12 +634,11 @@
           <span class="eyebrow mono">INTEREST VECTOR</span>
           <h3>Things I want to go deeper into</h3>
           <div class="interest-grid">
-            <div class="interest-chip">01 / AERODYNAMICS</div>
+            <div class="interest-chip">01 / ASTROPYSICS</div>
             <div class="interest-chip">02 / SPACE SYSTEMS</div>
-            <div class="interest-chip">03 / ASTROPHYSICS</div>
-            <div class="interest-chip">04 / AVIONICS</div>
-            <div class="interest-chip">05 / EMBEDDED</div>
-            <div class="interest-chip">06 / COMPUTATION</div>
+            <div class="interest-chip">03 / AERODYNAMICS</div>
+            <div class="interest-chip">04 / MATHEMATICS</div>
+            <div class="interest-chip">05 / COMPUTATION</div>
           </div>
           <p class="lab-note">NEXT TARGET → turn curiosity into a documented build.</p>
         </div>
