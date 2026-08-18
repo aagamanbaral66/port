@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aagaman — Aerospace Engineering & Avionics</title>
+<meta name="description" content="Personal flight log and telemetry of Aagaman (Nivalbus) — First-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Claude Warm Cream & Terracotta Palette */
+    --bg-space: #f4f1ea;
+    --panel-surface: #e8e4dc;
+    --panel-surface-hover: #dfdacd;
+    --line-grid: rgba(44, 43, 41, 0.12);
+    --line-grid-bright: rgba(44, 43, 41, 0.28);
+    --text-star: #1c1917;
+    --text-dim: #57534e;
+    --amber-thrust: #d97757;
+    --amber-thrust-glow: rgba(217, 119, 87, 0.2);
+    --cyan-vector: #c85a32;
+    --cyan-vector-glow: rgba(200, 90, 50, 0.12);
+    --radar-green: #059669;
+
+    /* Typography & Sizing */
+    --font-display: 'Space Grotesk', -apple-system, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --max-w: 1200px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-space);
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(217, 119, 87, 0.08) 0%, transparent 60%),
+      linear-gradient(var(--line-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-grid) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    background-position: 0 0, -1px -1px, -1px -1px;
+    color: var(--text-star);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--amber-thrust);
+    color: #ffffff;
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--amber-thrust);
+    outline-offset: 4px;
+  }
+
+  .wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .mono { font-family: var(--font-mono); }
+
+  /* ---------- TOP TELEMETRY STRIP & NAV ---------- */
+  .telemetry-bar {
+    background: rgba(244, 241, 234, 0.92);
+    border-bottom: 1px solid var(--line-grid-bright);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    padding: 6px 0;
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+
+  .telemetry-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .telemetry-item { display: flex; align-items: center; gap: 8px; }
+  .beacon-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--radar-green);
+    box-shadow: 0 0 8px var(--radar-green);
+    animation: pulse-beacon 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse-beacon {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .nav-header {
+    position: fixed;
+    top: 31px;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    background: rgba(232, 228, 220, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-grid-bright);
+  }
+
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--amber-thrust);
+    text-decoration: none;
+    border: 1px solid var(--amber-thrust);
+    padding: 4px 10px;
+    background: var(--amber-thrust-glow);
+    transition: all 0.2s ease;
+  }
+
+  .nav-brand:hover {
+    background: var(--amber-thrust);
+    color: #ffffff;
+    box-shadow: 0 0 12px var(--amber-thrust-glow);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--amber-thrust);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line-grid-bright);
+    color: var(--text-star);
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    cursor: pointer;
+  }
+
+  /* ---------- HERO SECTION ---------- */
+  .hero {
+    padding-top: 150px;
+    padding-bottom: 80px;
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--amber-thrust);
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    border: 1px solid var(--amber-thrust);
+    padding: 4px 12px;
+    background: var(--amber-thrust-glow);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6.5vw, 5rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    color: var(--text-star);
+  }
+
+  .hero-title .highlight {
+    color: var(--amber-thrust);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    max-width: 48ch;
+  }
+
+  .hero-status-box {
+    border-left: 3px solid var(--amber-thrust);
+    background: var(--panel-surface);
+    border-top: 1px solid var(--line-grid-bright);
+    border-right: 1px solid var(--line-grid-bright);
+    border-bottom: 1px solid var(--line-grid-bright);
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+
+  .hero-status-box strong {
+    color: var(--text-star);
+    font-weight: 600;
+  }
+
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: #ffffff;
+    background: var(--amber-thrust);
+    padding: 14px 26px;
+    font-weight: 600;
+    border: 1px solid var(--amber-thrust);
+    transition: all 0.25s ease;
+  }
+
+  .btn-action:hover {
+    background: transparent;
+    color: var(--amber-thrust);
+    box-shadow: 0 0 20px var(--amber-thrust-glow);
+  }
+
+  /* Radar Scope Canvas Container */
+  .radar-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--panel-surface);
+    border: 1px solid var(--line-grid-bright);
+    box-shadow: 0 16px 40px rgba(44, 43, 41, 0.08);
+    padding: 12px;
+  }
+
+  .radar-canvas-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  canvas#radarScope {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .radar-overlay-data {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--amber-thrust);
+    pointer-events: none;
+    background: rgba(244, 241, 234, 0.85);
+    padding: 6px 10px;
+    border: 1px solid var(--line-grid-bright);
+  }
+
+  /* Technical Corner Crosshairs */
+  .corner-mark {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: var(--amber-thrust);
+    pointer-events: none;
+  }
+  .cm-tl { top: -1px; left: -1px; border-top: 2px solid var(--amber-thrust); border-left: 2px solid var(--amber-thrust); }
+  .cm-tr { top: -1px; right: -1px; border-top: 2px solid var(--amber-thrust); border-right: 2px solid var(--amber-thrust); }
+  .cm-bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--amber-thrust); border-left: 2px solid var(--amber-thrust); }
+  .cm-br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--amber-thrust); border-right: 2px solid var(--amber-thrust); }
+
+  /* ---------- SECTIONS GENERAL ---------- */
+  .section {
+    padding: 90px 0;
+    border-top: 1px solid var(--line-grid-bright);
+    position: relative;
+  }
+
+  .section-head {
+    margin-bottom: 48px;
+  }
+
+  .sheet-id {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--amber-thrust);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* ---------- ABOUT / SPEC SHEET ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .bio-text {
+    font-size: 1.05rem;
+    color: var(--text-star);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .bio-text p { margin: 0 0 18px 0; }
+
+  .spec-table {
+    background: var(--panel-surface);
+    border: 1px solid var(--line-grid-bright);
+    padding: 24px;
+    position: relative;
+  }
+
+  .spec-table-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--amber-thrust);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line-grid-bright);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line-grid);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+  .spec-key { color: var(--text-dim); }
+  .spec-value { color: var(--text-star); font-weight: 600; text-align: right; }
+  .spec-value a { color: var(--amber-thrust); text-decoration: none; }
+  .spec-value a:hover { text-decoration: underline; }
+
+  /* ---------- TRAJECTORY FLIGHT PLAN ---------- */
+  .trajectory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    max-width: 720px;
+  }
+
+  .trajectory-list::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 15px;
+    width: 2px;
+    background: var(--line-grid-bright);
+  }
+
+  .trajectory-item {
+    position: relative;
+    padding-left: 48px;
+    padding-bottom: 40px;
+  }
+
+  .trajectory-item:last-child { padding-bottom: 0; }
+
+  .trajectory-node {
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-space);
+    border: 2px solid var(--amber-thrust);
+    box-shadow: 0 0 10px var(--amber-thrust-glow);
+    transition: all 0.3s ease;
+  }
+
+  .trajectory-item.active .trajectory-node {
+    background: var(--amber-thrust);
+    box-shadow: 0 0 12px var(--amber-thrust);
+  }
+
+  .trajectory-item.future .trajectory-node {
+    border-color: var(--text-dim);
+    box-shadow: none;
+  }
+
+  .trajectory-wp {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber-thrust);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .trajectory-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+  }
+
+  .trajectory-item.future h3 { color: var(--text-dim); }
+
+  .trajectory-item p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- PROJECTS GRID ---------- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--panel-surface);
+    border: 1px solid var(--line-grid-bright);
+    padding: 28px;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--amber-thrust);
+    box-shadow: 0 12px 30px rgba(44, 43, 41, 0.1);
+  }
+
+  .project-fig {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--amber-thrust);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .project-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+  }
+
+  .project-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+  }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-star);
+    background: rgba(44, 43, 41, 0.06);
+    border: 1px solid var(--line-grid-bright);
+    padding: 3px 8px;
+  }
+
+  /* ---------- OFF-DUTY & CONTACT ---------- */
+  .offduty-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .offduty-card {
+    background: var(--panel-surface);
+    border: 1px solid var(--line-grid-bright);
+    padding: 28px;
+    position: relative;
+  }
+
+  .offduty-card .category {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber-thrust);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .offduty-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin: 0 0 10px 0;
+  }
+
+  .offduty-card p {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  .contact-box {
+    max-width: 580px;
+  }
+
+  .contact-lead {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  /* ---------- FOOTER TITLE BLOCK ---------- */
+  .footer-stamp {
+    border-top: 1px solid var(--line-grid-bright);
+    background: var(--panel-surface);
+    padding: 24px 0;
+    margin-top: 60px;
+  }
+
+  .stamp-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  /* Scroll Reveal Animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .radar-container { max-width: 360px; margin-top: 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .offduty-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .telemetry-inner { justify-content: center; text-align: center; }
+    .nav-header { top: 52px; }
+    .hero { padding-top: 180px; }
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--panel-surface);
+      border-bottom: 1px solid var(--line-grid-bright);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-links.open { max-height: 300px; }
+    .nav-links a { display: block; padding: 14px 28px; border-bottom: 1px solid var(--line-grid); }
+    .nav-toggle { display: block; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP TELEMETRY STRIP -->
+<div class="telemetry-bar">
+  <div class="telemetry-inner">
+    <div class="telemetry-item">
+      <span class="beacon-dot"></span>
+      <span>SYS STATUS: <strong>NOMINAL</strong></span>
+    </div>
+    <div class="telemetry-item">
+      <span>LAT: <strong>27.6782° N</strong></span>
+      <span>LON: <strong>85.3168° E</strong></span>
+    </div>
+    <div class="telemetry-item">
+      <span>STATION: <strong>KATHMANDU (IOE PULCHOWK)</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<header class="nav-header">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">CALLSIGN // NIVALBUS</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">MENU [≡]</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#overview">01 // OVERVIEW</a></li>
+      <li><a href="#trajectory">02 // TRAJECTORY</a></li>
+      <li><a href="#projects">03 // PROJECTS</a></li>
+      <li><a href="#offduty">04 // OFF-DUTY</a></li>
+      <li><a href="#contact">05 // CONTACT</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-badge">
+            <span>●</span>
+            <span>BE AEROSPACE ENGINEERING — YEAR 01</span>
+          </div>
+          <h1 class="hero-title">
+            Aagaman <br><span class="highlight">Nivalbus</span>
+          </h1>
+          <p class="hero-subtitle">
+            First-year aerospace engineering student at Pulchowk Campus, IOE. Designing hardware micro-controllers, CAD models, and computing orbital pathways.
+          </p>
+          <div class="hero-status-box">
+            STATUS — <strong>Grade 12 Complete (GPA 4.0) → IOE Entrance Rank 803 → BE Aerospace Active</strong>
+          </div>
+          <a href="#trajectory" class="btn-action">
+            <span>VIEW FLIGHT VECTOR</span>
+            <span>↓</span>
+          </a>
+        </div>
+
+        <!-- RADAR SCOPE SIGNATURE ELEMENT -->
+        <div class="radar-container">
+          <div class="corner-mark cm-tl"></div>
+          <div class="corner-mark cm-tr"></div>
+          <div class="corner-mark cm-bl"></div>
+          <div class="corner-mark cm-br"></div>
+          <div class="radar-canvas-wrap">
+            <canvas id="radarScope" width="400" height="400"></canvas>
+            <div class="radar-overlay-data">
+              <span>SWEEP: ACTIVE</span>
+              <span id="radarCoord">ALT: 1,400M // LEO T-0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-id">SHEET 01 // OVERVIEW</span>
+        <h2 class="section-title">Mission Brief &amp; Focus</h2>
+      </div>
+
+      <div class="about-grid reveal">
+        <div class="bio-text">
+          <p>
+            I'm Aagaman — operating under the handle <strong>Nivalbus</strong> across digital channels. I completed my high school education at Siddhartha through Grade 12, achieving straight A+ theory marks, and am currently pursuing my Bachelor's in Aerospace Engineering at Pulchowk Campus, IOE, Tribhuvan University.
+          </p>
+          <p>
+            My work sits at the intersection of atmospheric flight dynamics and astrophysical computation. Between CAD iterations and hardware prototyping with Arduino boards, I am building the analytical foundation for research on orbital mechanics and deep-space mission design.
+          </p>
+          <p>
+            Long-term target: Master's and research focus in astrophysics (targeting IUCAA / IISc), leading into aerospace systems engineering with Airbus as a key career waypoint.
+          </p>
+        </div>
+
+        <div class="spec-table">
+          <div class="corner-mark cm-tl"></div>
+          <div class="corner-mark cm-br"></div>
+          <div class="spec-table-title">
+            <span>SPECIFICATION MANIFEST</span>
+            <span>MANIFEST NO. 01</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">LOCATION</span>
+            <span class="spec-value">Kathmandu, Nepal</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">SECONDARY ED.</span>
+            <span class="spec-value">Siddhartha (Grade 12)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">NEB RESULT</span>
+            <span class="spec-value">All A+ Theory · GPA 4.0/4.0</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">IOE RANK</span>
+            <span class="spec-value">803 Nationwide</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">CURRENT DEGREE</span>
+            <span class="spec-value">BE Aerospace Engineering</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">CAMPUS</span>
+            <span class="spec-value">Pulchowk, IOE, TU</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAJECTORY FLIGHT PLAN -->
+  <section class="section" id="trajectory">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-id">SHEET 02 // TRAJECTORY</span>
+        <h2 class="section-title">Flight Path &amp; Waypoints</h2>
+      </div>
+
+      <div class="trajectory-list reveal">
+        <div class="trajectory-item active">
+          <div class="trajectory-node"></div>
+          <span class="trajectory-wp">WAYPOINT 01 // COMPLETED</span>
+          <h3>Siddhartha Secondary School</h3>
+          <p>Concluded NEB examinations with top theoretical marks (GPA 4.0 / 4.0).</p>
+        </div>
+
+        <div class="trajectory-item active">
+          <div class="trajectory-node"></div>
+          <span class="trajectory-wp">WAYPOINT 02 // COMPLETED</span>
+          <h3>IOE Entrance Examination</h3>
+          <p>Secured rank 803 nationwide, qualifying for the Aerospace Engineering cohort.</p>
+        </div>
+
+        <div class="trajectory-item active">
+          <div class="trajectory-node"></div>
+          <span class="trajectory-wp">WAYPOINT 03 // ACTIVE LOCATION</span>
+          <h3>Pulchowk Campus — BE Aerospace</h3>
+          <p>Currently in Year 1. Building core competencies in thermodynamics, aerodynamics, and embedded hardware systems.</p>
+        </div>
+
+        <div class="trajectory-item future">
+          <div class="trajectory-node"></div>
+          <span class="trajectory-wp">WAYPOINT 04 // PLANNED VECTOR</span>
+          <h3>Master's Degree in Astrophysics</h3>
+          <p>Targeting research institutions including IUCAA and IISc to specialize in space sciences.</p>
+        </div>
+
+        <div class="trajectory-item future">
+          <div class="trajectory-node"></div>
+          <span class="trajectory-wp">WAYPOINT 05 // LONG-TERM TARGET</span>
+          <h3>Aerospace Research &amp; Airbus Pipeline</h3>
+          <p>Focusing on commercial and space payload systems through Pulchowk's direct MOU network and industry connections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-id">SHEET 03 // HARDWARE &amp; CODE</span>
+        <h2 class="section-title">Built &amp; Lab Bench Projects</h2>
+      </div>
+
+      <div class="projects-grid reveal">
+        <article class="project-card">
+          <span class="project-fig">FIG 01 // ACTUATOR CONTROL</span>
+          <h3>Bluetooth Fan Switch</h3>
+          <p>Wireless actuation system coupling an HC-06 module with a high-torque servo to toggle physical switches remotely.</p>
+          <div class="tags-row">
+            <span class="tag">HC-06</span>
+            <span class="tag">Servo</span>
+            <span class="tag">Arduino</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-fig">FIG 02 // AVIONICS DISPLAY</span>
+          <h3>Spotify Telemetry &amp; Lyrics</h3>
+          <p>I2C LCD interface synchronized to live Spotify audio playback using Python middleware querying the lrclib.net API.</p>
+          <div class="tags-row">
+            <span class="tag">Python</span>
+            <span class="tag">I2C LCD</span>
+            <span class="tag">REST API</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-fig">FIG 03 // ENVIRONMENTAL SENSING</span>
+          <h3>Auto Fan Toggle</h3>
+          <p>Autonomous climate regulation circuit using ambient light dependent resistor sensors (LDR) and relay switches.</p>
+          <div class="tags-row">
+            <span class="tag">LDR Sensor</span>
+            <span class="tag">Relay</span>
+            <span class="tag">Arduino</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-fig">FIG 04 // EMBEDDED GAMING</span>
+          <h3>LCD Dino Game Engine</h3>
+          <p>Rebuilt Chrome offline obstacle runner game in C++ optimized for character-matrix rendering on an I2C LCD screen.</p>
+          <div class="tags-row">
+            <span class="tag">C++</span>
+            <span class="tag">I2C LCD</span>
+            <span class="tag">Embedded</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-fig">FIG 05 // INFRASTRUCTURE</span>
+          <h3>Home Lab NAS Server</h3>
+          <p>Repurposed legacy hardware running Linux Mint and OpenMediaVault connected via Tailscale overlay networks for encrypted remote storage.</p>
+          <div class="tags-row">
+            <span class="tag">Linux Mint</span>
+            <span class="tag">OMV</span>
+            <span class="tag">Tailscale</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFF-DUTY -->
+  <section class="section" id="offduty">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-id">SHEET 04 // OFF-DUTY LOGS</span>
+        <h2 class="section-title">Telemetry Beyond the Lab</h2>
+      </div>
+
+      <div class="offduty-grid reveal">
+        <div class="offduty-card">
+          <span class="category">TELEMETRY &amp; STRATEGY</span>
+          <h3>Formula 1</h3>
+          <p>Tracking full race-weekend data sessions, telemetry pace, and pit strategies. Rooting for Charles Leclerc and Ferrari.</p>
+        </div>
+
+        <div class="offduty-card">
+          <span class="category">ATHLETICS &amp; GOALKEEPING</span>
+          <h3>Liverpool FC &amp; Football</h3>
+          <p>Passionate Liverpool FC supporter. Active weekend goalkeeper — developing rapid situational judgment and spatial awareness under pressure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-id">SHEET 05 // COMMUNICATION</span>
+        <h2 class="section-title">Establish Contact</h2>
+      </div>
+
+      <div class="contact-box reveal">
+        <p class="contact-lead">
+          Open to discussions regarding aerospace engineering initiatives, embedded electronics projects, or academic collaboration.
+        </p>
+
+        <div class="spec-table">
+          <div class="spec-table-title">DIRECT CHANNELS</div>
+          <div class="spec-row">
+            <span class="spec-key">EMAIL</span>
+            <span class="spec-value"><a href="mailto:your.email@example.com">your.email@example.com</a></span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">GITHUB</span>
+            <span class="spec-value"><a href="https://github.com/your-username" target="_blank" rel="noopener">github.com/your-username</a></span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">LINKEDIN</span>
+            <span class="spec-value"><a href="https://linkedin.com/in/your-name" target="_blank" rel="noopener">linkedin.com/in/your-name</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER TITLE BLOCK -->
+<footer class="footer-stamp">
+  <div class="stamp-inner">
+    <span>DWG NO: AGN-2026-AVIONICS</span>
+    <span>SCALE: 1:1</span>
+    <span>REV: E (MERGED HYBRID)</span>
+    <span>STATION: KATHMANDU, NEPAL</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile Navigation Toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  }
+
+  // Scroll Reveal Observer
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealElements = document.querySelectorAll('.reveal');
+
+  if (reduceMotion) {
+    revealElements.forEach(el => el.classList.add('in-view'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+  }
+
+  // Interactive Radar Scope Canvas in Warm Cream & Terracotta Theme
+  const canvas = document.getElementById('radarScope');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let angle = 0;
+
+    const waypoints = [
+      { r: 0.25, a: 45, label: "KTM" },
+      { r: 0.45, a: 130, label: "IOE" },
+      { r: 0.68, a: 220, label: "IUCAA" },
+      { r: 0.85, a: 310, label: "AIRBUS" }
+    ];
+
+    function drawRadar() {
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(w, h) / 2 - 15;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Radar Background Rings
+      ctx.strokeStyle = 'rgba(44, 43, 41, 0.18)';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 4; i++) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, (radius / 4) * i, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Crosshairs
+      ctx.beginPath();
+      ctx.moveTo(cx - radius, cy);
+      ctx.lineTo(cx + radius, cy);
+      ctx.moveTo(cx, cy - radius);
+      ctx.lineTo(cx, cy + radius);
+      ctx.stroke();
+
+      // Sweep Angle Calculation
+      if (!reduceMotion) {
+        angle = (angle + 0.02) % (Math.PI * 2);
+      } else {
+        angle = Math.PI / 4;
+      }
+
+      const sweepX = cx + Math.cos(angle) * radius;
+      const sweepY = cy + Math.sin(angle) * radius;
+
+      // Draw Terracotta Sweep Gradient Arc
+      const gradient = ctx.createConicGradient(angle - Math.PI / 2, cx, cy);
+      gradient.addColorStop(0, 'rgba(217, 119, 87, 0.35)');
+      gradient.addColorStop(0.12, 'rgba(217, 119, 87, 0.04)');
+      gradient.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw Sweep Line
+      ctx.strokeStyle = '#d97757';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(sweepX, sweepY);
+      ctx.stroke();
+
+      // Draw Waypoint Blips
+      waypoints.forEach((wp) => {
+        const radAngle = (wp.a * Math.PI) / 180;
+        const bx = cx + Math.cos(radAngle) * (radius * wp.r);
+        const by = cy + Math.sin(radAngle) * (radius * wp.r);
+
+        const diff = Math.abs(angle - radAngle);
+        const isHit = diff < 0.25;
+
+        ctx.fillStyle = isHit ? '#c85a32' : 'rgba(87, 83, 78, 0.7)';
+        ctx.beginPath();
+        ctx.arc(bx, by, isHit ? 5 : 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = isHit ? '#1c1917' : 'rgba(87, 83, 78, 0.8)';
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillText(wp.label, bx + 8, by + 3);
+      });
+
+      if (!reduceMotion) {
+        requestAnimationFrame(drawRadar);
+      }
+    }
+
+    drawRadar();
+  }
+</script>
+
+</body>
+</html>
