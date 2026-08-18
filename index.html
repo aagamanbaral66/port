@@ -266,7 +266,7 @@
   .tree-item{ color:var(--line); }
   .skill-bar{
     color:var(--cyan);
-    letter-spacing:1px;
+    letter-spacing:2px;
     font-family:var(--font-mono);
   }
 
@@ -630,18 +630,15 @@
 
       <div class="spec-tree-panel reveal">
         <pre><span class="tree-category">SOFTWARE</span>
-<span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="8" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="6" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">MATLAB       </span><span class="skill-bar" data-level="4" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="8" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="5" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="1" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="6" data-max="10">░░░░░░░░░░</span>
 
 <span class="tree-category">ENGINEERING</span>
-<span class="tree-branch">├── </span><span class="tree-item">CAD / Design</span>
-<span class="tree-branch">├── </span><span class="tree-item">Electronics</span>
-<span class="tree-branch">├── </span><span class="tree-item">Embedded Systems</span>
-<span class="tree-branch">├── </span><span class="tree-item">Aerodynamics</span>
-<span class="tree-branch">└── </span><span class="tree-item">Simulation</span></pre>
+<span class="tree-branch">├── </span><span class="tree-item">CAD / Design </span><span class="skill-bar" data-level="1" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">Electronics  </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">└── </span><span class="tree-item">Simulation   </span><span class="skill-bar" data-level="2" data-max="10">░░░░░░░░░░</span></pre>
       </div>
     </div>
   </section>
@@ -724,7 +721,7 @@
       <p class="contact-note reveal">Open to talking about aerospace projects, Pulchowk work, or anything on the electronics bench. Reach me through any of these.</p>
 
       <dl class="spec-sheet reveal" style="max-width:520px;">
-        <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aagamanbrl1@gmail.com" target="_blank" rel="noopener">aagamanbrl1@gmail.com</a></dd></div>
+        <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aagamanbrl1@gmail.com">aagamanbrl1@gmail.com</a></dd></div>
         <div class="spec-row"><dt>GITHUB</dt><dd><a href="https://github.com/aagamanbaral66" target="_blank" rel="noopener">github.com/aagamanbaral66</a></dd></div>
         <div class="spec-row"><dt>LINKEDIN</dt><dd><a href="https://linkedin.com/in/aagamanbaral" target="_blank" rel="noopener">linkedin.com/in/aagamanbaral</a></dd></div>
       </dl>
@@ -793,9 +790,9 @@
                 if(currentLevel >= targetLevel){
                   clearInterval(interval);
                 }
-              }, 70);
+              }, 50); // Animated fill speed
             });
-            skillObserver.unobserve(entry.target);
+            skillObserver.unobserve(specPanel);
           }
         });
       }, { threshold: 0.2 });
