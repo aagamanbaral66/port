@@ -127,11 +127,12 @@
   }
   .hero-name{
     font-family:var(--font-display);
-    font-size:clamp(2.4rem, 7vw, 4.6rem);
+    font-size:clamp(1.8rem, 5.5vw, 4.2rem);
     letter-spacing:0.02em;
     color:var(--line);
     text-transform:uppercase;
-    line-height:1.05;
+    line-height:1.08;
+    word-break:break-word;
   }
   .hero-role{
     font-family:var(--font-mono);
@@ -198,7 +199,6 @@
   .spec-row a{ color:var(--cyan); text-decoration:none; }
   .spec-row a:hover{ text-decoration:underline; }
 
-
   /* ---------- TRAJECTORY ---------- */
   .tl-list{ list-style:none; border-left:2px solid var(--line-dim); max-width:640px; }
   .tl-item{ position:relative; padding:0 0 44px 34px; }
@@ -232,7 +232,6 @@
     font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em;
     color:var(--amber); margin-bottom:10px;
   }
-  .resource-status{ color:var(--muted); }
   .resource-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .resource-link{
     display:inline-flex; align-items:center; gap:7px;
@@ -244,6 +243,32 @@
   .resource-link:hover{ border-color:var(--cyan); background:rgba(127,211,232,0.06); color:var(--line); }
   .resource-link.is-empty{ color:var(--muted); border-style:dashed; cursor:default; }
   .resource-link.is-empty:hover{ border-color:var(--line-dim); background:transparent; color:var(--muted); }
+
+  /* ---------- SPECIFICATION / SKILLS TREE ---------- */
+  .spec-tree-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line-dim);
+    padding:32px;
+    font-family:var(--font-mono);
+    font-size:clamp(0.85rem, 1.5vw, 0.98rem);
+    line-height:1.75;
+    color:var(--line);
+    overflow-x:auto;
+    box-shadow:inset 0 0 20px rgba(0,0,0,0.2);
+  }
+  .spec-tree-panel pre{
+    margin:0;
+    font-family:inherit;
+    white-space:pre;
+  }
+  .tree-branch{ color:var(--muted); }
+  .tree-category{ color:var(--amber); font-weight:600; letter-spacing:0.08em; }
+  .tree-item{ color:var(--line); }
+  .skill-bar{
+    color:var(--cyan);
+    letter-spacing:1px;
+    font-family:var(--font-mono);
+  }
 
   /* ---------- LAB BENCH ---------- */
   .lab-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; }
@@ -327,7 +352,7 @@
 
   @media (max-width:980px){
     .hero-inner{
-      grid-template-columns:minmax(0,1fr) minmax(260px,0.8fr);
+      grid-template-columns:minmax(0,1.1fr) minmax(260px,0.9fr);
       gap:28px;
     }
     .hero-art{ min-height:280px; }
@@ -384,7 +409,7 @@
   @media (max-width:560px){
     .wrap{ padding-left:18px; padding-right:18px; }
     .nav-inner{ padding-left:18px; padding-right:18px; }
-    .hero-name{ font-size:clamp(2.25rem, 14vw, 3.4rem); }
+    .hero-name{ font-size:clamp(1.4rem, 7.5vw, 2.2rem); }
     .hero-role{ font-size:0.88rem; }
     .hero-status{ margin-top:24px; }
     .btn-primary{ width:100%; text-align:center; margin-top:28px; }
@@ -420,7 +445,6 @@
     }
   }
 
-
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
     html{ scroll-behavior:auto; }
@@ -436,6 +460,7 @@
       <li><a href="#about">OVERVIEW</a></li>
       <li><a href="#trajectory">TRAJECTORY</a></li>
       <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#skills">SPECIFICATIONS</a></li>
       <li><a href="#lab">LAB</a></li>
       <li><a href="#offduty">OFF-DUTY</a></li>
       <li><a href="#contact">CONTACT</a></li>
@@ -462,7 +487,6 @@
 
     <div class="hero-art" aria-hidden="true">
       <svg viewBox="0 0 640 520" preserveAspectRatio="xMidYMid meet">
-        <!-- scattered stars, denser toward the upper right (astrophysics horizon) -->
         <g class="star">
           <circle cx="520" cy="60" r="2"></circle>
           <circle cx="560" cy="95" r="1.4"></circle>
@@ -478,22 +502,17 @@
           <circle cx="610" cy="200" r="1.3"></circle>
         </g>
 
-        <!-- faint orbit rings around the terminal point -->
         <circle cx="540" cy="90" r="34" fill="none" stroke="var(--line-dim)" stroke-width="1"></circle>
         <circle cx="540" cy="90" r="54" fill="none" stroke="var(--line-dim)" stroke-width="1"></circle>
 
-        <!-- trajectory path: runway to orbit -->
         <path class="draw-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7"></path>
 
-        <!-- aircraft marker at the origin -->
         <g transform="translate(60,470) rotate(-35)">
           <path d="M0,-9 L9,9 L0,4 L-9,9 Z" fill="var(--amber)"></path>
         </g>
 
-        <!-- satellite marker at the terminus -->
         <circle cx="540" cy="90" r="5" fill="var(--cyan)"></circle>
 
-        <!-- ground reference line with tick marks -->
         <line x1="20" y1="490" x2="300" y2="490" stroke="var(--line-dim)" stroke-width="1"></line>
         <line x1="20" y1="484" x2="20" y2="496" stroke="var(--line-dim)" stroke-width="1"></line>
         <line x1="160" y1="484" x2="160" y2="496" stroke="var(--line-dim)" stroke-width="1"></line>
@@ -522,7 +541,6 @@
           <div class="spec-row"><dt>LOCATION</dt><dd>Kathmandu, Nepal</dd></div>
           <div class="spec-row"><dt>PRIOR SCHOOL</dt><dd>Siddhartha B.S.S, Damak, Jhapa — through Grade 12</dd></div>
           <div class="spec-row"><dt>NEB RESULT</dt><dd>A+</dd></div>
-          <!-- <div class="spec-row"><dt>IOE ENTRANCE RANK</dt><dd>803</dd></div>-->
           <div class="spec-row"><dt>CURRENT PROGRAM</dt><dd>BE Aerospace Engineering</dd></div>
           <div class="spec-row"><dt>INSTITUTION</dt><dd>Pulchowk Campus, IOE, TU</dd></div>
         </dl>
@@ -581,14 +599,7 @@
           <h3>Home Lab NAS</h3>
           <p>A retired laptop running Linux Mint, OpenMediaVault, and Tailscale — file access from anywhere, no port forwarding.</p>
           <div class="chip-row"><span class="chip">Linux Mint</span><span class="chip">OMV</span><span class="chip">Tailscale</span></div>
-          <div class="project-resources">
-            <!--<div class="resource-label"><span>RESOURCES / FILES</span><span class="resource-status">ADD YOURS</span></div>
-            <div class="resource-row">
-              <a class="resource-link is-empty" href="#">↗ Config</a>
-              <a class="resource-link is-empty" href="#">◇ Diagram</a>
-              <a class="resource-link is-empty" href="#">↓ Notes</a>
-            </div> -->
-          </div>
+          <div class="project-resources"></div>
         </article>
 
         <article class="project-card">
@@ -597,7 +608,7 @@
           <p>An HC-06 module paired with a servo to flip a wall fan on and off from a phone.</p>
           <div class="chip-row"><span class="chip">HC-06</span><span class="chip">Servo</span><span class="chip">Arduino</span></div>
           <div class="project-resources">
-              <div class="resource-label"><span>RESOURCES / FILES</span></div>
+            <div class="resource-label"><span>RESOURCES / FILES</span></div>
             <div class="resource-row">
               <a class="resource-link is-empty" href="https://github.com/aagamanbaral66/sketches/blob/main/fan_switch_bt.ino">↗ GitHub</a>
               <a class="resource-link is-empty" href="https://wokwi.com/projects/472703942605684737" target="_blank">◇ Schematic</a>
@@ -609,10 +620,36 @@
     </div>
   </section>
 
+  <!-- ENGINEERING SPECIFICATION / SKILLS -->
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sheet-tag">SHEET 04 — ENGINEERING SPECIFICATION</span>
+        <h2>Capabilities &amp; Tooling</h2>
+      </div>
+
+      <div class="spec-tree-panel reveal">
+        <pre><span class="tree-category">SOFTWARE</span>
+<span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="8" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="6" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">MATLAB       </span><span class="skill-bar" data-level="4" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="8" data-max="10">░░░░░░░░░░</span>
+
+<span class="tree-category">ENGINEERING</span>
+<span class="tree-branch">├── </span><span class="tree-item">CAD / Design</span>
+<span class="tree-branch">├── </span><span class="tree-item">Electronics</span>
+<span class="tree-branch">├── </span><span class="tree-item">Embedded Systems</span>
+<span class="tree-branch">├── </span><span class="tree-item">Aerodynamics</span>
+<span class="tree-branch">└── </span><span class="tree-item">Simulation</span></pre>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="lab">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 04 — LAB BENCH</span>
+        <span class="sheet-tag">SHEET 05 — LAB BENCH</span>
         <h2>Currently learning</h2>
       </div>
 
@@ -649,7 +686,7 @@
   <section class="section" id="offduty">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 05 — OFF-DUTY</span>
+        <span class="sheet-tag">SHEET 06 — OFF-DUTY</span>
         <h2>When I'm not studying</h2>
       </div>
 
@@ -680,14 +717,14 @@
   <section class="section" id="contact">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 06 — CONTACT</span>
+        <span class="sheet-tag">SHEET 07 — CONTACT</span>
         <h2>Get in touch</h2>
       </div>
 
       <p class="contact-note reveal">Open to talking about aerospace projects, Pulchowk work, or anything on the electronics bench. Reach me through any of these.</p>
 
       <dl class="spec-sheet reveal" style="max-width:520px;">
-        <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aagamanbrl1@gmail.com">aagamanbrl1@gmail.com</a></dd></div>
+        <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aagamanbrl1@gmail.com" target="_blank" rel="noopener">aagamanbrl1@gmail.com</a></dd></div>
         <div class="spec-row"><dt>GITHUB</dt><dd><a href="https://github.com/aagamanbaral66" target="_blank" rel="noopener">github.com/aagamanbaral66</a></dd></div>
         <div class="spec-row"><dt>LINKEDIN</dt><dd><a href="https://linkedin.com/in/aagamanbaral" target="_blank" rel="noopener">linkedin.com/in/aagamanbaral</a></dd></div>
       </dl>
@@ -700,7 +737,7 @@
   <span>DWG NO. AGN-2026-01</span>
   <span>SCALE NTS</span>
   <span>REV A</span>
-  <span>SHEET 06 OF 06</span>
+  <span>SHEET 07 OF 07</span>
 </footer>
 
 <script>
@@ -730,6 +767,40 @@
       });
     }, { threshold: 0.12 });
     revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  // animate skill bars when entering viewport
+  var specPanel = document.querySelector('.spec-tree-panel');
+  if (specPanel) {
+    if (reduceMotion) {
+      specPanel.querySelectorAll('.skill-bar').forEach(function(bar){
+        var level = parseInt(bar.getAttribute('data-level'), 10) || 0;
+        var max = parseInt(bar.getAttribute('data-max'), 10) || 10;
+        bar.textContent = '█'.repeat(level) + '░'.repeat(max - level);
+      });
+    } else {
+      var skillObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var bars = entry.target.querySelectorAll('.skill-bar');
+            bars.forEach(function(bar){
+              var targetLevel = parseInt(bar.getAttribute('data-level'), 10) || 0;
+              var maxLevel = parseInt(bar.getAttribute('data-max'), 10) || 10;
+              var currentLevel = 0;
+              var interval = setInterval(function(){
+                currentLevel++;
+                bar.textContent = '█'.repeat(currentLevel) + '░'.repeat(maxLevel - currentLevel);
+                if(currentLevel >= targetLevel){
+                  clearInterval(interval);
+                }
+              }, 70);
+            });
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      skillObserver.observe(specPanel);
+    }
   }
 
   // draw-in animation for the hero trajectory path
