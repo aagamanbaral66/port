@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.aagamanbaral.com.np/sitemap.xml
