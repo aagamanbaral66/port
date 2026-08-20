@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Lost Contact | Aagaman</title>
+<meta name="description" content="Page not found.">
+<link rel="canonical" href="https://www.aagamanbaral.com.np/">
+
+<link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0b2440;
+    --bg-panel:#0f2f4e;
+    --line:#dfeaf3;
+    --line-dim:rgba(223,234,243,0.28);
+    --contour:rgba(127,211,232,0.16);
+    --contour-dim:rgba(127,211,232,0.07);
+    --amber:#f2a444;
+    --cyan:#7fd3e8;
+    --muted:#93b1c7;
+    --font-display:'Michroma','Consolas',sans-serif;
+    --font-body:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;
+    --font-mono:'IBM Plex Mono','SFMono-Regular',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--line);
+    font-family:var(--font-body);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .terrain-bg{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+  }
+
+  .crosshair{
+    position:fixed;
+    width:22px; height:22px;
+    border:1px solid var(--amber);
+    border-radius:50%;
+    z-index:1;
+    pointer-events:none;
+  }
+  .crosshair::before,.crosshair::after{
+    content:"";
+    position:absolute;
+    background:var(--amber);
+  }
+  .crosshair::before{ left:50%; top:-8px; width:1px; height:8px; transform:translateX(-50%); }
+  .crosshair::after{ left:50%; bottom:-8px; width:1px; height:8px; transform:translateX(-50%); }
+
+  .panel{
+    position:relative;
+    z-index:2;
+    max-width:560px;
+    width:100%;
+    border:1px solid var(--line-dim);
+    background:rgba(15,47,78,0.86);
+    backdrop-filter:blur(6px);
+    padding:clamp(32px, 6vw, 56px);
+    text-align:center;
+    box-shadow:inset 0 0 24px rgba(0,0,0,0.25), 0 20px 50px rgba(0,0,0,0.3);
+  }
+
+  .tag{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:0.74rem;
+    letter-spacing:0.14em;
+    color:var(--amber);
+    margin-bottom:22px;
+  }
+  .code{
+    font-family:var(--font-display);
+    font-size:clamp(2.4rem, 10vw, 3.6rem);
+    letter-spacing:0.04em;
+    color:var(--line);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:clamp(1.2rem, 3vw, 1.5rem);
+    margin:0 0 16px;
+    color:var(--line);
+  }
+  p{
+    color:var(--muted);
+    font-size:0.98rem;
+    max-width:40ch;
+    margin:0 auto 22px;
+    line-height:1.6;
+  }
+
+  .radio-log{
+    font-family:var(--font-mono);
+    font-size:0.74rem;
+    letter-spacing:0.02em;
+    color:var(--cyan);
+    text-align:left;
+    background:rgba(0,0,0,0.22);
+    border:1px solid var(--line-dim);
+    border-left:2px solid var(--amber);
+    padding:14px 16px;
+    margin:0 auto 30px;
+    max-width:400px;
+    line-height:1.85;
+  }
+  .radio-log .call{ color:var(--muted); }
+  .radio-log .static{ color:var(--amber); }
+  .radio-log .cursor{
+    display:inline-block;
+    width:7px; height:13px;
+    background:var(--cyan);
+    margin-left:2px;
+    vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .btn{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    color:var(--bg);
+    background:var(--amber);
+    padding:13px 22px;
+    border:1px solid var(--amber);
+    transition:background .2s ease, color .2s ease;
+  }
+  .btn:hover{ background:transparent; color:var(--amber); }
+  .coords{
+    margin-top:28px;
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    color:var(--muted);
+    opacity:0.75;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <svg class="terrain-bg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M-50,620 C150,560 300,660 500,600 C700,540 850,640 1050,580 C1150,550 1200,590 1250,570" fill="none" stroke="var(--contour)" stroke-width="1.5"/>
+    <path d="M-50,660 C160,600 320,700 520,640 C720,580 870,680 1080,620 C1160,600 1210,630 1250,610" fill="none" stroke="var(--contour)" stroke-width="1.5"/>
+    <path d="M-50,700 C170,650 340,730 540,680 C740,630 880,720 1090,670 C1170,650 1220,670 1250,655" fill="none" stroke="var(--contour-dim)" stroke-width="1.5"/>
+    <path d="M-50,740 C180,700 350,760 560,720 C760,680 900,760 1100,720 C1180,705 1220,715 1250,705" fill="none" stroke="var(--contour-dim)" stroke-width="1.5"/>
+
+    <path d="M-50,150 C180,110 320,190 540,140 C760,90 900,180 1120,130 C1200,110 1230,140 1250,120" fill="none" stroke="var(--contour-dim)" stroke-width="1.5"/>
+    <path d="M-50,110 C190,70 330,150 550,100 C770,50 910,140 1130,90 C1210,72 1235,100 1250,82" fill="none" stroke="var(--contour-dim)" stroke-width="1.5"/>
+    <path d="M-50,70 C200,30 340,110 560,60 C780,12 920,100 1140,52 C1215,36 1240,60 1250,46" fill="none" stroke="var(--contour)" stroke-width="1.5"/>
+
+    <path d="M-50,380 C220,330 380,430 600,380 C820,330 960,430 1180,380 C1220,370 1240,385 1250,378" fill="none" stroke="var(--contour-dim)" stroke-width="1.2"/>
+    <path d="M-50,420 C230,375 390,460 610,415 C830,370 970,460 1190,415 C1225,405 1245,415 1250,412" fill="none" stroke="var(--contour-dim)" stroke-width="1.2"/>
+
+    <line x1="120" y1="200" x2="920" y2="560" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="6 6" opacity="0.45"/>
+    <circle cx="120" cy="200" r="4" fill="var(--cyan)"/>
+    <circle cx="920" cy="560" r="4" fill="var(--amber)"/>
+  </svg>
+
+  <span class="crosshair" style="top:200px; left:120px;"></span>
+  <span class="crosshair" style="top:560px; left:920px; border-color:var(--amber);"></span>
+
+  <div class="panel">
+    <span class="tag mono">SIGNAL LOST</span>
+    <div class="code">404</div>
+    <h1>Off Course</h1>
+    <p>Whatever waypoint you were headed to doesn't exist on this flight plan.</p>
+
+    <div class="radio-log mono">
+      <div><span class="call">AGN-01 →</span> ATC, radio check<span class="cursor"></span></div>
+      <div class="static">···· ―― ···· no reply ····</div>
+      <div><span class="call">AGN-01 →</span> going off frequency, last known position below</div>
+    </div>
+
+    <a href="/" class="btn">RETURN TO BASE ↵</a>
+    <div class="coords mono">DWG NO. AGN-404 · NO TELEMETRY FOUND</div>
+  </div>
+
+</body>
+</html>
