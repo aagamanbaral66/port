@@ -546,15 +546,57 @@
     *{ animation:none !important; transition:none !important; }
     html{ scroll-behavior:auto; }
   }
+
+  /* ---------- BOOT SEQUENCE ---------- */
+  .boot-screen{
+    position:fixed; inset:0; z-index:200;
+    background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); color:var(--cyan);
+    font-size:0.85rem; letter-spacing:0.1em;
+    transition:opacity .4s ease;
+  }
+  .boot-screen.is-hidden{ opacity:0; pointer-events:none; }
+  .boot-line{ opacity:0; animation:boot-appear .25s ease forwards; }
+  .boot-line:nth-child(1){ animation-delay:.05s; }
+  .boot-line:nth-child(2){ animation-delay:.3s; }
+  .boot-line:nth-child(3){ animation-delay:.55s; color:var(--amber); }
+  @keyframes boot-appear{ to{ opacity:1; } }
+
+  /* ---------- TELEMETRY STRIP ---------- */
+  .telemetry{
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em;
+    color:var(--muted); display:flex; gap:16px; white-space:nowrap;
+  }
+  .telemetry span b{ color:var(--cyan); font-weight:500; }
+  @media (max-width:760px){
+    .telemetry{ font-size:0.62rem; gap:8px; letter-spacing:0.04em; }
+    .telemetry .telemetry-alt{ display:none; }
+  }
+  @media (max-width:380px){
+    .telemetry{ font-size:0.56rem; }
+  }
 </style>
 </head>
 <body>
+
+<div class="boot-screen mono" id="bootScreen" aria-hidden="true">
+  <div>
+    <div class="boot-line">INIT SYSTEMS...</div>
+    <div class="boot-line">LOADING TELEMETRY...</div>
+    <div class="boot-line">SYSTEMS ONLINE</div>
+  </div>
+</div>
 
 <a href="#top" class="skip-link mono">Skip to content</a>
 
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-badge mono">AGN&nbsp;·&nbsp;01</a>
+    <div class="telemetry mono" id="telemetry" aria-hidden="true">
+      <span>KTM <b id="telemetryTime">--:--:--</b></span>
+      <span class="telemetry-alt">ALT <b>1400M</b></span>
+    </div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">OVERVIEW</a></li>
       <li><a href="#trajectory">TRAJECTORY</a></li>
@@ -934,6 +976,37 @@
       path.style.strokeDashoffset = '0';
     });
   });
+
+  // boot sequence overlay
+  var bootScreen = document.getElementById('bootScreen');
+  if (bootScreen) {
+    if (reduceMotion) {
+      bootScreen.remove();
+    } else {
+      window.addEventListener('load', function(){
+        setTimeout(function(){
+          bootScreen.classList.add('is-hidden');
+          setTimeout(function(){ bootScreen.remove(); }, 450);
+        }, 750);
+      });
+    }
+  }
+
+  // live telemetry clock (Asia/Kathmandu)
+  var telemetryTime = document.getElementById('telemetryTime');
+  if (telemetryTime) {
+    function updateTelemetryClock(){
+      var now = new Date();
+      var formatted = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kathmandu',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+      }).format(now);
+      telemetryTime.textContent = formatted;
+    }
+    updateTelemetryClock();
+    setInterval(updateTelemetryClock, 1000);
+  }
 </script>
 
 </body>
