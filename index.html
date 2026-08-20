@@ -6,6 +6,34 @@
 <title>Aagaman — Aerospace Engineering</title>
 <meta name="description" content="Personal site of Aagaman — first-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu.">
 <link rel="canonical" href="https://www.aagamanbaral.com.np/">
+<meta name="theme-color" content="#0b2440">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aagaman Baral",
+  "url": "https://www.aagamanbaral.com.np/",
+  "jobTitle": "BE Aerospace Engineering Student",
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "Pulchowk Campus, Institute of Engineering, Tribhuvan University"
+  },
+  "alumniOf": {
+    "@type": "School",
+    "name": "Siddhartha B.S.S, Damak, Jhapa"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kathmandu",
+    "addressCountry": "NP"
+  },
+  "sameAs": [
+    "https://github.com/aagamanbaral66",
+    "https://linkedin.com/in/aagamanbaral"
+  ]
+}
+</script>
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aagaman — Aerospace Engineering">
@@ -69,6 +97,15 @@
     outline:2px solid var(--amber);
     outline-offset:3px;
   }
+
+  .skip-link{
+    position:absolute; top:-100px; left:12px; z-index:100;
+    background:var(--amber); color:var(--bg);
+    font-family:var(--font-mono); font-size:0.8rem; letter-spacing:0.06em;
+    padding:10px 16px; text-decoration:none;
+    transition:top .2s ease;
+  }
+  .skip-link:focus{ top:12px; }
 
   .wrap{
     width:100%;
@@ -513,6 +550,8 @@
 </head>
 <body>
 
+<a href="#top" class="skip-link mono">Skip to content</a>
+
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-badge mono">AGN&nbsp;·&nbsp;01</a>
@@ -561,21 +600,21 @@
           <circle cx="610" cy="200" r="1.3"></circle>
         </g>
 
-        <circle cx="540" cy="90" r="34" fill="none" stroke="var(--line-dim)" stroke-width="1"></circle>
-        <circle cx="540" cy="90" r="54" fill="none" stroke="var(--line-dim)" stroke-width="1"></circle>
+        <circle cx="540" cy="90" r="34" fill="none" style="stroke:var(--line-dim)" stroke-width="1"></circle>
+        <circle cx="540" cy="90" r="54" fill="none" style="stroke:var(--line-dim)" stroke-width="1"></circle>
 
         <path class="draw-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7"></path>
 
         <g transform="translate(60,470) rotate(-35)">
-          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" fill="var(--amber)"></path>
+          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" style="fill:var(--amber)"></path>
         </g>
 
-        <circle cx="540" cy="90" r="5" fill="var(--cyan)"></circle>
+        <circle cx="540" cy="90" r="5" style="fill:var(--cyan)"></circle>
 
-        <line x1="20" y1="490" x2="300" y2="490" stroke="var(--line-dim)" stroke-width="1"></line>
-        <line x1="20" y1="484" x2="20" y2="496" stroke="var(--line-dim)" stroke-width="1"></line>
-        <line x1="160" y1="484" x2="160" y2="496" stroke="var(--line-dim)" stroke-width="1"></line>
-        <line x1="300" y1="484" x2="300" y2="496" stroke="var(--line-dim)" stroke-width="1"></line>
+        <line x1="20" y1="490" x2="300" y2="490" style="stroke:var(--line-dim)" stroke-width="1"></line>
+        <line x1="20" y1="484" x2="20" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
+        <line x1="160" y1="484" x2="160" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
+        <line x1="300" y1="484" x2="300" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
       </svg>
     </div>
   </div>
@@ -689,7 +728,6 @@
           <h3>Home Lab NAS</h3>
           <p>A retired laptop running Linux Mint, OpenMediaVault, and Tailscale — file access from anywhere, no port forwarding.</p>
           <div class="chip-row"><span class="chip">Linux Mint</span><span class="chip">OMV</span><span class="chip">Tailscale</span></div>
-          <div class="project-resources"></div>
         </article>
 
         <article class="project-card">
@@ -711,7 +749,6 @@
         <h3>KNSU Rocket Fuel</h3>
         <p>Grade 9, 2023 — mixed a batch of potassium nitrate and sugar propellant on the stove. It ignited on test, but I didn't take it further into an actual motor build.</p>
         <div class="chip-row"><span class="chip">KNO3</span><span class="chip">Sucrose</span><span class="chip">Propulsion</span></div>
-        <div class="project-resources"></div>
       </article>
 
         <article class="project-card">
@@ -720,7 +757,6 @@
           <h3>Wind Tunnel</h3>
           <p>Still on paper, planning a small subsonic tunnel to actually test airfoil shapes instead of just simulating them.</p>
           <div class="chip-row"><span class="chip">Aerodynamics</span></div>
-          <div class="project-resources"></div>
         </article>
 
       </div>
@@ -737,15 +773,15 @@
 
       <div class="spec-tree-panel reveal">
         <pre><span class="tree-category">SOFTWARE</span>
-<span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="5" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="1" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="6" data-max="10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="5" data-max="10" role="img" aria-label="Python: 5 out of 10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="7" data-max="10" role="img" aria-label="C/C++: 7 out of 10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="1" data-max="10" role="img" aria-label="CAD: 1 out of 10">░░░░░░░░░░</span>
+<span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="6" data-max="10" role="img" aria-label="Git: 6 out of 10">░░░░░░░░░░</span>
 
 <span class="tree-category">ENGINEERING</span>
-<span class="tree-branch">├── </span><span class="tree-item">CAD / Design </span><span class="skill-bar" data-level="1" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">├── </span><span class="tree-item">Electronics  </span><span class="skill-bar" data-level="7" data-max="10">░░░░░░░░░░</span>
-<span class="tree-branch">└── </span><span class="tree-item">Simulation   </span><span class="skill-bar" data-level="2" data-max="10">░░░░░░░░░░</span></pre>
+<span class="tree-branch">├── </span><span class="tree-item">CAD / Design </span><span class="skill-bar" data-level="1" data-max="10" role="img" aria-label="CAD / Design: 1 out of 10">░░░░░░░░░░</span>
+<span class="tree-branch">├── </span><span class="tree-item">Electronics  </span><span class="skill-bar" data-level="7" data-max="10" role="img" aria-label="Electronics: 7 out of 10">░░░░░░░░░░</span>
+<span class="tree-branch">└── </span><span class="tree-item">Simulation   </span><span class="skill-bar" data-level="2" data-max="10" role="img" aria-label="Simulation: 2 out of 10">░░░░░░░░░░</span></pre>
       </div>
     </div>
   </section>
@@ -800,8 +836,8 @@
     -->
       <dl class="spec-sheet reveal" style="max-width:520px;">
         <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aagamanbrl1@gmail.com">aagamanbrl1@gmail.com</a></dd></div>
-        <div class="spec-row"><dt>GITHUB</dt><dd><a href="https://github.com/aagamanbaral66" target="_blank" rel="noopener">github.com/aagamanbaral66</a></dd></div>
-        <div class="spec-row"><dt>LINKEDIN</dt><dd><a href="https://linkedin.com/in/aagamanbaral" target="_blank" rel="noopener">linkedin.com/in/aagamanbaral</a></dd></div>
+        <div class="spec-row"><dt>GITHUB</dt><dd><a href="https://github.com/aagamanbaral66" target="_blank" rel="noopener me">github.com/aagamanbaral66</a></dd></div>
+        <div class="spec-row"><dt>LINKEDIN</dt><dd><a href="https://linkedin.com/in/aagamanbaral" target="_blank" rel="noopener me">linkedin.com/in/aagamanbaral</a></dd></div>
       </dl>
       <div class="coords mono" style="text-align:left; margin-top:40px; opacity:0.6;">
         Hand-coded HTML/CSS/JS, hosted on GitHub Pages, AI assisted only for DNS debugging and wording.
