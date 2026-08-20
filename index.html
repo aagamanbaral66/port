@@ -268,8 +268,20 @@
   /* ---------- PROJECTS ---------- */
   .project-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:22px; }
   .project-card{
+    position:relative;
     background:var(--bg-panel); border:1px solid var(--line-dim);
     padding:26px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .status-stamp{
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-family:var(--font-mono);
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    color:var(--muted);
+    border:1px dashed var(--line-dim);
+    padding:4px 8px;
   }
   .project-card:hover{ transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 12px 28px rgba(0,0,0,0.16); }
   .project-resources{
@@ -673,7 +685,7 @@
       <div class="project-grid reveal">
 
         <article class="project-card">
-          <span class="fig-tag">FIG. 01</span>
+          <span class="fig-tag">PROJECT. 01</span>
           <h3>Home Lab NAS</h3>
           <p>A retired laptop running Linux Mint, OpenMediaVault, and Tailscale — file access from anywhere, no port forwarding.</p>
           <div class="chip-row"><span class="chip">Linux Mint</span><span class="chip">OMV</span><span class="chip">Tailscale</span></div>
@@ -681,7 +693,7 @@
         </article>
 
         <article class="project-card">
-          <span class="fig-tag">FIG. 02</span>
+          <span class="fig-tag">PROJECT. 02</span>
           <h3>Bluetooth Fan Switch</h3>
           <p>An HC-06 module paired with a servo to flip a wall fan on and off from a phone.</p>
           <div class="chip-row"><span class="chip">HC-06</span><span class="chip">Servo</span><span class="chip">Arduino</span></div>
@@ -689,9 +701,26 @@
             <div class="resource-label"><span>RESOURCES / FILES</span></div>
             <div class="resource-row">
               <a class="resource-link" href="https://github.com/aagamanbaral66/sketches/blob/main/fan_switch_bt/fan_switch_bt.ino" target="_blank" rel="noopener">↗ GitHub</a>
-              <a class="resource-link" href="https://wokwi.com/projects/472703942605684737" target="_blank" rel="noopener">◇ Schematic</a>
+                            <a class="resource-link" href="https://wokwi.com/projects/472703942605684737" target="_blank" rel="noopener">◇ Schematic</a>
             </div>
           </div>
+        </article>
+
+      <article class="project-card">
+        <span class="fig-tag">PROJECT. 03</span>
+        <h3>KNSU Rocket Fuel</h3>
+        <p>Grade 9, 2023 — mixed a batch of potassium nitrate and sugar propellant on the stove. It ignited on test, but I didn't take it further into an actual motor build.</p>
+        <div class="chip-row"><span class="chip">KNO3</span><span class="chip">Sucrose</span><span class="chip">Propulsion</span></div>
+        <div class="project-resources"></div>
+      </article>
+
+        <article class="project-card">
+          <span class="fig-tag">PROJECT. 04</span>
+          <span class="status-stamp mono">PLANNING</span>
+          <h3>Wind Tunnel</h3>
+          <p>Still on paper, planning a small subsonic tunnel to actually test airfoil shapes instead of just simulating them.</p>
+          <div class="chip-row"><span class="chip">Aerodynamics</span></div>
+          <div class="project-resources"></div>
         </article>
 
       </div>
