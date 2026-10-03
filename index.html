@@ -559,6 +559,10 @@
     }
   }
 
+.chip.rode{ color:var(--amber); border-color:var(--amber); }
+.log-chips{ justify-content:flex-end; }
+@media (max-width:560px){ .log-chips{ justify-content:flex-start; } }
+
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
     html{ scroll-behavior:auto; }
@@ -905,6 +909,22 @@
         </article>
 
       </div>
+
+      <div class="reveal" style="margin-top:48px; max-width:720px;">
+  <span class="fig-tag">FLIGHT LOG · 3 RODE · 21 TYPES SEEN</span>
+  <p style="color:var(--muted); font-size:0.88rem; margin-bottom:14px;">Amber = I've flown on it. The rest I've just seen.</p>
+  <dl class="spec-sheet">
+    <div class="spec-row"><dt>ATR</dt><dd class="chip-row log-chips"><span class="chip rode">72-500</span><span class="chip">72-600</span></dd></div>
+    <div class="spec-row"><dt>BAE</dt><dd class="chip-row log-chips"><span class="chip rode">Jetstream 41</span></dd></div>
+    <div class="spec-row"><dt>DE HAVILLAND CANADA</dt><dd class="chip-row log-chips"><span class="chip rode">Dash 8-Q400</span></dd></div>
+    <div class="spec-row"><dt>BOMBARDIER</dt><dd class="chip-row log-chips"><span class="chip">CRJ200</span></dd></div>
+    <div class="spec-row"><dt>AIRBUS</dt><dd class="chip-row log-chips"><span class="chip">A319</span><span class="chip">A320</span><span class="chip">A320neo</span><span class="chip">A321neo</span><span class="chip">A330</span><span class="chip">A400M Atlas</span></dd></div>
+    <div class="spec-row"><dt>BOEING</dt><dd class="chip-row log-chips"><span class="chip">737</span><span class="chip">737 MAX 8</span><span class="chip">747</span><span class="chip">767</span><span class="chip">777F</span><span class="chip">787-8</span><span class="chip">787-10</span><span class="chip">787-9</span><span class="chip">C-17 Globemaster III</span></dd></div>
+    <div class="spec-row"><dt>LOCKHEED MARTIN</dt><dd class="chip-row log-chips"><span class="chip">C-130J Super Hercules</span></dd></div>
+    <div class="spec-row"><dt>XI'AN</dt><dd class="chip-row log-chips"><span class="chip">Y-20</span></dd></div>
+    <div class="spec-row"><dt>SHAANXI</dt><dd class="chip-row log-chips"><span class="chip">Y-8</span></dd></div>
+  </dl>
+</div>
 
       <div class="reveal" style="margin-top:48px; max-width:520px;">
         <span class="fig-tag">NOW · UPDATED 3 OCT 2026</span>
