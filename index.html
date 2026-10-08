@@ -602,6 +602,321 @@
   @media (max-width:380px){
     .telemetry{ font-size:0.56rem; }
   }
+
+    /* ---------- SECRET TERMINAL ---------- */
+
+.terminal-trigger{
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  z-index:45;
+
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--bg-panel);
+  color:var(--cyan);
+  border:1px solid var(--line-dim);
+
+  font-family:var(--font-mono);
+  font-size:0.9rem;
+
+  cursor:pointer;
+
+  opacity:0.7;
+  transition:
+    opacity .2s ease,
+    border-color .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+.terminal-trigger:hover{
+  opacity:1;
+  color:var(--amber);
+  border-color:var(--amber);
+  transform:translateY(-2px);
+}
+
+.terminal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:150;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:rgba(4,14,25,0.76);
+  backdrop-filter:blur(7px);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease;
+}
+
+.terminal-overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.terminal-window{
+  width:min(820px, 100%);
+  max-height:min(620px, 85vh);
+
+  display:flex;
+  flex-direction:column;
+
+  background:#071a2d;
+  border:1px solid var(--line-dim);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    inset 0 0 40px rgba(0,0,0,.18);
+
+  transform:translateY(12px) scale(.98);
+  transition:transform .2s ease;
+}
+
+.terminal-overlay.open .terminal-window{
+  transform:translateY(0) scale(1);
+}
+
+.terminal-header{
+  min-height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 14px;
+
+  border-bottom:1px solid var(--line-dim);
+
+  font-family:var(--font-mono);
+  font-size:.68rem;
+  letter-spacing:.08em;
+
+  color:var(--muted);
+}
+
+.terminal-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.terminal-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 8px rgba(127,211,232,.45);
+}
+
+.terminal-close{
+  background:none;
+  border:0;
+  color:var(--muted);
+
+  font-family:var(--font-mono);
+  font-size:1rem;
+
+  cursor:pointer;
+  padding:4px 7px;
+}
+
+.terminal-close:hover{
+  color:var(--amber);
+}
+
+.terminal-output{
+  flex:1;
+  min-height:280px;
+  max-height:480px;
+
+  overflow-y:auto;
+
+  padding:20px;
+
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  line-height:1.75;
+
+  color:var(--line);
+
+  scrollbar-width:thin;
+  scrollbar-color:var(--line-dim) transparent;
+}
+
+.terminal-line{
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.terminal-line.command{
+  color:var(--cyan);
+}
+
+.terminal-line.system{
+  color:var(--muted);
+}
+
+.terminal-line.success{
+  color:var(--amber);
+}
+
+.terminal-line.error{
+  color:#e89090;
+}
+
+.terminal-prompt{
+  display:flex;
+  align-items:center;
+
+  border-top:1px solid var(--line-dim);
+
+  padding:12px 16px;
+
+  font-family:var(--font-mono);
+  font-size:.78rem;
+}
+
+.terminal-prompt-label{
+  color:var(--cyan);
+  white-space:nowrap;
+}
+
+.terminal-input{
+  flex:1;
+
+  min-width:0;
+
+  margin-left:8px;
+
+  background:transparent;
+  border:0;
+  outline:0;
+
+  color:var(--line);
+
+  font:inherit;
+  caret-color:var(--amber);
+}
+
+.terminal-input::selection{
+  background:var(--cyan);
+  color:var(--bg);
+}
+
+.terminal-cursor{
+  color:var(--amber);
+}
+
+.terminal-launch{
+  position:fixed;
+  inset:0;
+  z-index:300;
+
+  pointer-events:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--bg);
+
+  opacity:0;
+}
+
+.terminal-launch.active{
+  animation:launchSequence 2.4s ease forwards;
+}
+
+.launch-rocket{
+  font-size:4rem;
+  transform:translateY(40vh) rotate(-45deg);
+}
+
+.terminal-launch.active .launch-rocket{
+  animation:rocketLaunch 1.8s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes launchSequence{
+  0%{ opacity:0; }
+  15%{ opacity:1; }
+  75%{ opacity:1; }
+  100%{ opacity:0; }
+}
+
+@keyframes rocketLaunch{
+  0%{
+    transform:translateY(40vh) rotate(-45deg);
+  }
+
+  100%{
+    transform:translate(35vw,-65vh) rotate(-45deg);
+  }
+}
+
+@media (max-width:560px){
+
+  .terminal-trigger{
+    left:14px;
+    bottom:14px;
+
+    width:38px;
+    height:38px;
+  }
+
+  .terminal-overlay{
+    padding:12px;
+  }
+
+  .terminal-window{
+    max-height:88vh;
+  }
+
+  .terminal-output{
+    padding:16px;
+    font-size:.72rem;
+  }
+
+  .terminal-prompt{
+    padding:10px 12px;
+    font-size:.72rem;
+  }
+
+  .terminal-prompt-label{
+    font-size:.68rem;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+
+  .terminal-overlay,
+  .terminal-window{
+    transition:none;
+  }
+
+  .terminal-launch.active,
+  .terminal-launch.active .launch-rocket{
+    animation:none;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -969,6 +1284,80 @@
 
 <a href="#top" class="to-top mono" id="toTop" aria-label="Back to top">↑</a>
 
+    <!-- SECRET TERMINAL -->
+
+<button
+  class="terminal-trigger mono"
+  id="terminalTrigger"
+  aria-label="Open terminal"
+  title="Open terminal (Ctrl + K)"
+>
+  &gt;_
+</button>
+
+<div
+  class="terminal-overlay"
+  id="terminalOverlay"
+  aria-hidden="true"
+>
+
+  <div
+    class="terminal-window"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Aagaman portfolio terminal"
+  >
+
+    <div class="terminal-header">
+
+      <div class="terminal-title">
+        <span class="terminal-dot"></span>
+        <span>AAGAMAN@PORTFOLIO</span>
+      </div>
+
+      <button
+        class="terminal-close"
+        id="terminalClose"
+        aria-label="Close terminal"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="terminal-output"
+      id="terminalOutput"
+      aria-live="polite"
+    ></div>
+
+    <div class="terminal-prompt">
+
+      <span class="terminal-prompt-label">
+        Aagaman@portfolio:~$
+      </span>
+
+      <input
+        type="text"
+        class="terminal-input"
+        id="terminalInput"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="Terminal command"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="terminal-launch" id="terminalLaunch" aria-hidden="true">
+  <div class="launch-rocket">🚀</div>
+</div>
+
 <script>
   // mobile nav toggle
   var navToggle = document.getElementById('navToggle');
@@ -1119,6 +1508,514 @@
       toTop.classList.toggle('show', window.scrollY > 700);
     }, { passive: true });
   }
+
+// ============================================================
+// SECRET TERMINAL
+// ============================================================
+
+(function(){
+
+  var terminalTrigger = document.getElementById('terminalTrigger');
+  var terminalOverlay = document.getElementById('terminalOverlay');
+  var terminalClose = document.getElementById('terminalClose');
+  var terminalOutput = document.getElementById('terminalOutput');
+  var terminalInput = document.getElementById('terminalInput');
+
+  if(
+    !terminalTrigger ||
+    !terminalOverlay ||
+    !terminalClose ||
+    !terminalOutput ||
+    !terminalInput
+  ){
+    return;
+  }
+
+  var commandHistory = [];
+  var historyIndex = -1;
+
+  function openTerminal(){
+
+    terminalOverlay.classList.add('open');
+    terminalOverlay.setAttribute('aria-hidden','false');
+
+    terminalInput.value = '';
+
+    setTimeout(function(){
+      terminalInput.focus();
+    },100);
+
+  }
+
+  function closeTerminal(){
+
+    terminalOverlay.classList.remove('open');
+    terminalOverlay.setAttribute('aria-hidden','true');
+
+    terminalInput.blur();
+
+  }
+
+  function print(text, type){
+
+    var line = document.createElement('div');
+
+    line.className = 'terminal-line' + (
+      type ? ' ' + type : ''
+    );
+
+    line.textContent = text;
+
+    terminalOutput.appendChild(line);
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+  }
+
+  function printCommand(command){
+
+    print(
+      'Aagaman@portfolio:~$ ' + command,
+      'command'
+    );
+
+  }
+
+  function clearTerminal(){
+
+    terminalOutput.innerHTML = '';
+
+  }
+
+  function showWelcome(){
+
+    print('AAGAMAN PORTFOLIO TERMINAL','success');
+    print('────────────────────────────────────────');
+    print('SYSTEM ONLINE');
+    print('');
+    print("Type 'help' to see available commands.");
+    print('');
+
+  }
+
+  function runCommand(rawCommand){
+
+    var command = rawCommand.trim().toLowerCase();
+
+    if(!command){
+      return;
+    }
+
+    printCommand(rawCommand);
+
+    // ---------------- HELP ----------------
+
+    if(command === 'help'){
+
+      print('');
+      print('AVAILABLE COMMANDS','success');
+      print('');
+      print('about       → About me');
+      print('projects    → View projects');
+      print('skills      → View capabilities');
+      print('contact     → Contact information');
+      print('github      → Open GitHub');
+      print('status      → Current system status');
+      print('date        → Kathmandu system time');
+      print('neofetch    → System information');
+      print('clear       → Clear terminal');
+      print('exit        → Close terminal');
+      print('');
+
+      return;
+    }
+
+    // ---------------- ABOUT ----------------
+
+    if(command === 'about'){
+
+      print('');
+      print('AAGAMAN BARAL','success');
+      print('Aerospace Engineering student');
+      print('Pulchowk Campus · IOE · TU');
+      print('Kathmandu, Nepal');
+      print('');
+      print('Physics + Mathematics + CS + Aerospace');
+      print('');
+
+      return;
+    }
+
+    // ---------------- PROJECTS ----------------
+
+    if(command === 'projects'){
+
+      print('');
+      print('PROJECT DATABASE','success');
+      print('');
+      print('[01] Home Lab NAS');
+      print('[02] KNSU Rocket Fuel');
+      print('[03] Propane Popper');
+      print('[04] Wind Tunnel — PLANNING');
+      print('');
+
+      print('Redirecting to PROJECTS...','system');
+
+      setTimeout(function(){
+
+        closeTerminal();
+
+        var section = document.getElementById('projects');
+
+        if(section){
+          section.scrollIntoView({
+            behavior:'smooth'
+          });
+        }
+
+      },500);
+
+      return;
+    }
+
+    // ---------------- SKILLS ----------------
+
+    if(command === 'skills'){
+
+      print('');
+      print('ENGINEERING SPECIFICATION','success');
+      print('');
+      print('SOFTWARE');
+      print('  Python       █████░░░░░░');
+      print('  C/C++        ███████░░░');
+      print('  Git          ██████░░░░');
+      print('');
+      print('ENGINEERING');
+      print('  CAD          █░░░░░░░░░');
+      print('  Electronics  ███████░░░');
+      print('  Simulation   ██░░░░░░░░');
+      print('');
+      print('PHYSICS & MATH');
+      print('  Mathematics   █████████░');
+      print('  Physics       ████████░░');
+      print('');
+
+      return;
+    }
+
+    // ---------------- CONTACT ----------------
+
+    if(command === 'contact'){
+
+      print('');
+      print('CONTACT CHANNELS','success');
+      print('');
+      print('EMAIL');
+      print('  aagamanbrl1@gmail.com');
+      print('');
+      print('GITHUB');
+      print('  github.com/aagamanbaral66');
+      print('');
+      print('LINKEDIN');
+      print('  linkedin.com/in/aagamanbaral');
+      print('');
+
+      return;
+    }
+
+    // ---------------- GITHUB ----------------
+
+    if(command === 'github'){
+
+      print('');
+      print('Opening GitHub...','success');
+
+      setTimeout(function(){
+
+        window.open(
+          'https://github.com/aagamanbaral66',
+          '_blank',
+          'noopener'
+        );
+
+      },400);
+
+      return;
+    }
+
+    // ---------------- STATUS ----------------
+
+    if(command === 'status'){
+
+      print('');
+      print('SYSTEM STATUS','success');
+      print('────────────────────────');
+      print('PORTFOLIO      ONLINE');
+      print('TELEMETRY      ACTIVE');
+      print('NAVIGATION     NOMINAL');
+      print('PROJECTS       4');
+      print('CURRENT PHASE  YEAR 1');
+      print('MISSION        AEROSPACE');
+      print('LOCATION       KATHMANDU');
+      print('────────────────────────');
+      print('');
+
+      return;
+    }
+
+    // ---------------- DATE ----------------
+
+    if(command === 'date'){
+
+      var now = new Date();
+
+      var formatted = new Intl.DateTimeFormat(
+        'en-GB',
+        {
+          timeZone:'Asia/Kathmandu',
+          weekday:'short',
+          year:'numeric',
+          month:'short',
+          day:'2-digit',
+          hour:'2-digit',
+          minute:'2-digit',
+          second:'2-digit',
+          hour12:false
+        }
+      ).format(now);
+
+      print('');
+      print('KATHMANDU TIME','success');
+      print(formatted);
+      print('');
+
+      return;
+    }
+
+    // ---------------- NEOFETCH ----------------
+
+    if(command === 'neofetch'){
+
+      print('');
+      print('        .--.          AAGAMAN@PORTFOLIO');
+      print('       |o_o |         ─────────────────');
+      print('       |:_/ |         OS: Web');
+      print('      //   \\ \\        Stack: HTML/CSS/JS');
+      print('     (|     | )       Focus: Aerospace');
+      print('    /\\_   _/\\        Campus: Pulchowk');
+      print('    \\___)=(___/       Location: Nepal');
+      print('');
+      print('                       STATUS: ONLINE');
+      print('');
+
+      return;
+    }
+
+    // ---------------- CLEAR ----------------
+
+    if(command === 'clear'){
+
+      clearTerminal();
+
+      return;
+    }
+
+    // ---------------- EXIT ----------------
+
+    if(
+      command === 'exit' ||
+      command === 'quit'
+    ){
+
+      closeTerminal();
+
+      return;
+    }
+
+    // ========================================================
+    // ONLY SECRET COMMAND LEFT
+    // ========================================================
+
+    if(command === '42'){
+
+      print('');
+      print('THE ANSWER TO THE ULTIMATE QUESTION.','success');
+      print('');
+      print('Now you just need to figure out the question.');
+      print('');
+
+      return;
+    }
+
+    // ---------------- UNKNOWN COMMAND ----------------
+
+    print(
+      'Command not found: ' + rawCommand,
+      'error'
+    );
+
+    print(
+      "Type 'help' for available commands."
+    );
+
+  }
+
+  // Open button
+
+  terminalTrigger.addEventListener(
+    'click',
+    openTerminal
+  );
+
+  // Close button
+
+  terminalClose.addEventListener(
+    'click',
+    closeTerminal
+  );
+
+  // Click outside terminal
+
+  terminalOverlay.addEventListener(
+    'click',
+    function(event){
+
+      if(event.target === terminalOverlay){
+        closeTerminal();
+      }
+
+    }
+  );
+
+  // ============================================================
+  // ~ TOGGLE TERMINAL
+  // ============================================================
+
+  document.addEventListener(
+    'keydown',
+    function(event){
+
+      // ~ key
+      if(
+        event.key === '~' &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.metaKey
+      ){
+
+        // Don't trigger while typing in an input/textarea
+        var tag = document.activeElement
+          ? document.activeElement.tagName
+          : '';
+
+        if(
+          tag === 'INPUT' ||
+          tag === 'TEXTAREA'
+        ){
+          return;
+        }
+
+        event.preventDefault();
+
+        if(
+          terminalOverlay.classList.contains('open')
+        ){
+          closeTerminal();
+        }else{
+          openTerminal();
+        }
+
+        return;
+      }
+
+      // Escape
+
+      if(
+        event.key === 'Escape' &&
+        terminalOverlay.classList.contains('open')
+      ){
+
+        closeTerminal();
+
+      }
+
+    }
+  );
+
+  // Terminal input
+
+  terminalInput.addEventListener(
+    'keydown',
+    function(event){
+
+      if(event.key === 'Enter'){
+
+        var command = terminalInput.value.trim();
+
+        if(command){
+
+          commandHistory.push(command);
+          historyIndex = commandHistory.length;
+
+          runCommand(command);
+
+        }
+
+        terminalInput.value = '';
+
+        return;
+      }
+
+      // Previous command
+
+      if(event.key === 'ArrowUp'){
+
+        if(commandHistory.length === 0){
+          return;
+        }
+
+        event.preventDefault();
+
+        historyIndex = Math.max(
+          0,
+          historyIndex - 1
+        );
+
+        terminalInput.value =
+          commandHistory[historyIndex] || '';
+
+        return;
+      }
+
+      // Next command
+
+      if(event.key === 'ArrowDown'){
+
+        if(commandHistory.length === 0){
+          return;
+        }
+
+        event.preventDefault();
+
+        historyIndex = Math.min(
+          commandHistory.length,
+          historyIndex + 1
+        );
+
+        terminalInput.value =
+          commandHistory[historyIndex] || '';
+
+      }
+
+    }
+  );
+
+  // Welcome message
+
+  showWelcome();
+
+})();
+
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b214818e5f754a21a29c08c9786966ad"}'></script><!-- End Cloudflare Web Analytics -->
