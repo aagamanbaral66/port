@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.replace('no-js','js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aagaman Baral | Aerospace Engineering</title>
 <meta name="description" content="Personal site of Aagaman Baral — first-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu.">
@@ -228,8 +229,9 @@
     color:var(--line);
   }
 
-  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .js .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .js .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .no-js .boot-screen{ display:none; }
 
   /* ---------- ABOUT ---------- */
   .about-wrap{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:start; }
@@ -452,17 +454,17 @@
   }
 
   .to-top{
-  position:fixed; right:18px; bottom:18px; z-index:40;
-  width:42px; height:42px;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--bg-panel); color:var(--amber);
-  border:1px solid var(--line-dim);
-  text-decoration:none; font-size:1.1rem;
-  opacity:0; visibility:hidden;
-  transition:opacity .2s ease, visibility .2s ease, border-color .2s ease;
-}
-.to-top.show{ opacity:1; visibility:visible; }
-.to-top:hover{ border-color:var(--amber); }
+    position:fixed; right:18px; bottom:18px; z-index:40;
+    width:42px; height:42px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg-panel); color:var(--amber);
+    border:1px solid var(--line-dim);
+    text-decoration:none; font-size:1.1rem;
+    opacity:0; visibility:hidden;
+    transition:opacity .2s ease, visibility .2s ease, border-color .2s ease;
+  }
+  .to-top.show{ opacity:1; visibility:visible; }
+  .to-top:hover{ border-color:var(--amber); }
 
   @media (max-width:980px){
     .hero-inner{
@@ -480,13 +482,16 @@
       background:var(--bg-panel);
       border-bottom:1px solid var(--line-dim);
       max-height:0; overflow:hidden;
-      transition:max-height .3s ease;
+      visibility:hidden;
+      transition:max-height .3s ease, visibility 0s linear .3s;
     }
     .nav-links.open{
       max-height:calc(100svh - 61px);
       overflow-y:auto;
       overflow-x:hidden;
       -webkit-overflow-scrolling:touch;
+      visibility:visible;
+      transition:max-height .3s ease, visibility 0s;
     }
     .nav-links a{
       display:block;
@@ -559,9 +564,9 @@
     }
   }
 
-.chip.rode{ color:var(--amber); border-color:var(--amber); }
-.log-chips{ justify-content:flex-end; }
-@media (max-width:560px){ .log-chips{ justify-content:flex-start; } }
+  .chip.rode{ color:var(--amber); border-color:var(--amber); }
+  .log-chips{ justify-content:flex-end; }
+  @media (max-width:560px){ .log-chips{ justify-content:flex-start; } }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
@@ -706,7 +711,7 @@
     </div>
   </section>
 
-   <section class="section" id="trajectory">
+  <section class="section" id="trajectory">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="sheet-tag">SHEET 02 — FLIGHT PLAN</span>
@@ -732,7 +737,7 @@
         <li class="tl-item is-future">
           <span class="tl-label mono">WP04 · TBD</span>
           <h3>Next Waypoint</h3>
-          <p>Route splits somewhere after the Bachelor's hopefully towards a PhD eventually.</p>
+          <p>Route splits after the Bachelor's. Hopefully toward a PhD.</p>
         </li>
       </ol>
 
@@ -774,6 +779,7 @@
       </div> -->
     </div>
   </section>
+
   <section class="section" id="projects">
     <div class="wrap">
       <div class="section-head reveal">
@@ -786,7 +792,7 @@
         <article class="project-card">
           <span class="fig-tag">PROJECT. 01</span>
           <h3>Home Lab NAS</h3>
-          <p>2026 July — a retired laptop running Linux with TrueNAS as the distro used as a home server/NAS.</p>
+          <p>2026 July — a retired laptop running TrueNAS used as a home server/NAS.</p>
           <div class="chip-row"><span class="chip">Linux</span><span class="chip">TrueNAS</span></div>
         </article>
 <!--
@@ -804,18 +810,18 @@
           </div>
         </article>
       -->
-      <article class="project-card">
-        <span class="fig-tag">PROJECT. 02</span>
-        <h3>KNSU Rocket Fuel</h3>
-        <p>Grade 9, 2023 August — mixed a batch of potassium nitrate and sugar propellant on the stove. It ignited on test, but I didn't take it further into an actual motor build.</p>
-        <div class="chip-row"><span class="chip">KNO3</span><span class="chip">Sucrose</span><span class="chip">Propulsion</span></div>
-      </article>
+        <article class="project-card">
+          <span class="fig-tag">PROJECT. 02</span>
+          <h3>KNSU Rocket Fuel</h3>
+          <p>Grade 9, 2023 August — mixed a batch of potassium nitrate and sugar propellant on the stove. It ignited on test, but I didn't take it further into an actual motor build.</p>
+          <div class="chip-row"><span class="chip">KNO3</span><span class="chip">Sucrose</span><span class="chip">Propulsion</span></div>
+        </article>
 
-      <article class="project-card">
-  <span class="fig-tag">PROJECT. 03</span>
-  <h3>Propane Popper</h3>
-  <p>Grade 11, 2025 February — made up a simple propane popper for a science exhibition using water jars, sparking wire and vinyl pipe to produce a thrust. Took a few tries to figure out the gas-to-air mix, but it worked pretty well.</p>
-  <div class="chip-row"><span class="chip">Propane</span><span class="chip">Spark Ignition</span><span class="chip">DIY</span></div>
+        <article class="project-card">
+          <span class="fig-tag">PROJECT. 03</span>
+          <h3>Propane Popper</h3>
+          <p>Grade 11, 2025 February — made up a simple propane popper for a science exhibition using water jars, sparking wire and vinyl pipe to produce a thrust. Took a few tries to figure out the gas-to-air mix, but it worked pretty well.</p>
+          <div class="chip-row"><span class="chip">Propane</span><span class="chip">Spark Ignition</span><span class="chip">DIY</span></div>
 <!-- 
 <div class="project-resources">
             <div class="resource-label"><span>RESOURCES / FILES</span></div>
@@ -824,10 +830,7 @@
                             <a class="resource-link" href="assets/VID_20260830_201004_729 (1).mp4" rel="noopener">◇ Videos</a> 
             </div>
           </div> -->
-
-
-</article>
-
+        </article>
 
         <article class="project-card">
           <span class="fig-tag">PROJECT. 04</span>
@@ -836,7 +839,6 @@
           <p>Still on paper, planning a small subsonic tunnel to actually test airfoil shapes instead of just simulating them.</p>
           <div class="chip-row"><span class="chip">Aerodynamics</span></div>
         </article>
-
 
       </div>
     </div>
@@ -855,7 +857,6 @@
           <span class="tree-category">SOFTWARE</span>
           <div class="tree-row"><span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="5" data-max="10" role="img" aria-label="Python: 5 out of 10">░░░░░░░░░░</span></div>
           <div class="tree-row"><span class="tree-branch">├── </span><span class="tree-item">C/C++        </span><span class="skill-bar" data-level="7" data-max="10" role="img" aria-label="C/C++: 7 out of 10">░░░░░░░░░░</span></div>
-          <div class="tree-row"><span class="tree-branch">├── </span><span class="tree-item">CAD          </span><span class="skill-bar" data-level="1" data-max="10" role="img" aria-label="CAD: 1 out of 10">░░░░░░░░░░</span></div>
           <div class="tree-row"><span class="tree-branch">└── </span><span class="tree-item">Git          </span><span class="skill-bar" data-level="6" data-max="10" role="img" aria-label="Git: 6 out of 10">░░░░░░░░░░</span></div>
         </div>
 
@@ -875,7 +876,7 @@
     </div>
   </section>
 
-    <section class="section" id="offduty">
+  <section class="section" id="offduty">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="sheet-tag">SHEET 05 — OFF-DUTY</span>
@@ -893,7 +894,7 @@
         <article class="project-card">
           <span class="fig-tag">MOTORSPORT</span>
           <h3>Formula 1</h3>
-          <p>Never missed a GP especially not when Lewis is on the grid.</p>
+          <p>Never missed a GP, especially not when Lewis is on the grid.</p>
         </article>
 
         <article class="project-card">
@@ -959,8 +960,6 @@
   </section>
 </main>
 
-
-
 <footer class="titleblock mono">
   <span>DWG NO. AGN-2026-01</span>
   <span>SCALE NTS</span>
@@ -979,7 +978,10 @@
     navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
   navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+    a.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
   });
 
   // scroll reveal
@@ -1055,24 +1057,32 @@
     startDrawPaths();
   }
 
-  // boot sequence overlay
+  // boot sequence overlay (once per session)
   var bootScreen = document.getElementById('bootScreen');
   if (bootScreen) {
-    if (reduceMotion) {
+    var seenBoot = false;
+    try { seenBoot = sessionStorage.getItem('booted') === '1'; } catch(e){}
+
+    if (reduceMotion || seenBoot) {
       bootScreen.remove();
       startDrawPaths();
     } else {
-            window.addEventListener('load', function(){
-        setTimeout(function(){
-          bootScreen.classList.add('is-hidden');
-          setTimeout(function(){ bootScreen.remove(); }, 450);
-        }, 650);
-        setTimeout(function(){
-          startDrawPaths();
-        }, 350);
+      try { sessionStorage.setItem('booted', '1'); } catch(e){}
+      var bootDone = false;
+      var finishBoot = function(){
+        if (bootDone) return;
+        bootDone = true;
+        bootScreen.classList.add('is-hidden');
+        setTimeout(function(){ bootScreen.remove(); }, 450);
+      };
+      window.addEventListener('load', function(){
+        setTimeout(startDrawPaths, 350);
+        setTimeout(finishBoot, 650);
       });
+      setTimeout(finishBoot, 2000); // safety cap if load is slow
     }
   }
+
   // live telemetry clock (Asia/Kathmandu)
   var telemetryTime = document.getElementById('telemetryTime');
   if (telemetryTime) {
@@ -1089,28 +1099,26 @@
     setInterval(updateTelemetryClock, 1000);
   }
 
-
   // highlight current section in nav
-var navAnchors = document.querySelectorAll('.nav-links a');
-var sectionObs = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      navAnchors.forEach(function(a){
-        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-      });
-    }
-  });
-}, { rootMargin: '-40% 0px -55% 0px' });
-document.querySelectorAll('#top, main section[id]').forEach(function(s){ sectionObs.observe(s); });
+  var navAnchors = document.querySelectorAll('.nav-links a');
+  var sectionObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        navAnchors.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('#top, main section[id]').forEach(function(s){ sectionObs.observe(s); });
 
-
-// back to top
-var toTop = document.getElementById('toTop');
-if(toTop){
-  window.addEventListener('scroll', function(){
-    toTop.classList.toggle('show', window.scrollY > 700);
-  }, { passive: true });
-}
+  // back to top
+  var toTop = document.getElementById('toTop');
+  if(toTop){
+    window.addEventListener('scroll', function(){
+      toTop.classList.toggle('show', window.scrollY > 700);
+    }, { passive: true });
+  }
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b214818e5f754a21a29c08c9786966ad"}'></script><!-- End Cloudflare Web Analytics -->
