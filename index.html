@@ -603,319 +603,267 @@
     .telemetry{ font-size:0.56rem; }
   }
 
-    /* ---------- SECRET TERMINAL ---------- */
-
-.terminal-trigger{
-  position:fixed;
-  left:18px;
-  bottom:18px;
-  z-index:45;
-
-  width:42px;
-  height:42px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:var(--bg-panel);
-  color:var(--cyan);
-  border:1px solid var(--line-dim);
-
-  font-family:var(--font-mono);
-  font-size:0.9rem;
-
-  cursor:pointer;
-
-  opacity:0.7;
-  transition:
-    opacity .2s ease,
-    border-color .2s ease,
-    color .2s ease,
-    transform .2s ease;
-}
-
-.terminal-trigger:hover{
-  opacity:1;
-  color:var(--amber);
-  border-color:var(--amber);
-  transform:translateY(-2px);
-}
-
-.terminal-overlay{
-  position:fixed;
-  inset:0;
-  z-index:150;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:24px;
-
-  background:rgba(4,14,25,0.76);
-  backdrop-filter:blur(7px);
-
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-
-  transition:
-    opacity .2s ease,
-    visibility .2s ease;
-}
-
-.terminal-overlay.open{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-
-.terminal-window{
-  width:min(820px, 100%);
-  max-height:min(620px, 85vh);
-
-  display:flex;
-  flex-direction:column;
-
-  background:#071a2d;
-  border:1px solid var(--line-dim);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.45),
-    inset 0 0 40px rgba(0,0,0,.18);
-
-  transform:translateY(12px) scale(.98);
-  transition:transform .2s ease;
-}
-
-.terminal-overlay.open .terminal-window{
-  transform:translateY(0) scale(1);
-}
-
-.terminal-header{
-  min-height:42px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:0 14px;
-
-  border-bottom:1px solid var(--line-dim);
-
-  font-family:var(--font-mono);
-  font-size:.68rem;
-  letter-spacing:.08em;
-
-  color:var(--muted);
-}
-
-.terminal-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.terminal-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--cyan);
-  box-shadow:0 0 8px rgba(127,211,232,.45);
-}
-
-.terminal-close{
-  background:none;
-  border:0;
-  color:var(--muted);
-
-  font-family:var(--font-mono);
-  font-size:1rem;
-
-  cursor:pointer;
-  padding:4px 7px;
-}
-
-.terminal-close:hover{
-  color:var(--amber);
-}
-
-.terminal-output{
-  flex:1;
-  min-height:280px;
-  max-height:480px;
-
-  overflow-y:auto;
-
-  padding:20px;
-
-  font-family:var(--font-mono);
-  font-size:.78rem;
-  line-height:1.75;
-
-  color:var(--line);
-
-  scrollbar-width:thin;
-  scrollbar-color:var(--line-dim) transparent;
-}
-
-.terminal-line{
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-.terminal-line.command{
-  color:var(--cyan);
-}
-
-.terminal-line.system{
-  color:var(--muted);
-}
-
-.terminal-line.success{
-  color:var(--amber);
-}
-
-.terminal-line.error{
-  color:#e89090;
-}
-
-.terminal-prompt{
-  display:flex;
-  align-items:center;
-
-  border-top:1px solid var(--line-dim);
-
-  padding:12px 16px;
-
-  font-family:var(--font-mono);
-  font-size:.78rem;
-}
-
-.terminal-prompt-label{
-  color:var(--cyan);
-  white-space:nowrap;
-}
-
-.terminal-input{
-  flex:1;
-
-  min-width:0;
-
-  margin-left:8px;
-
-  background:transparent;
-  border:0;
-  outline:0;
-
-  color:var(--line);
-
-  font:inherit;
-  caret-color:var(--amber);
-}
-
-.terminal-input::selection{
-  background:var(--cyan);
-  color:var(--bg);
-}
-
-.terminal-cursor{
-  color:var(--amber);
-}
-
-.terminal-launch{
-  position:fixed;
-  inset:0;
-  z-index:300;
-
-  pointer-events:none;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:var(--bg);
-
-  opacity:0;
-}
-
-.terminal-launch.active{
-  animation:launchSequence 2.4s ease forwards;
-}
-
-.launch-rocket{
-  font-size:4rem;
-  transform:translateY(40vh) rotate(-45deg);
-}
-
-.terminal-launch.active .launch-rocket{
-  animation:rocketLaunch 1.8s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-@keyframes launchSequence{
-  0%{ opacity:0; }
-  15%{ opacity:1; }
-  75%{ opacity:1; }
-  100%{ opacity:0; }
-}
-
-@keyframes rocketLaunch{
-  0%{
-    transform:translateY(40vh) rotate(-45deg);
-  }
-
-  100%{
-    transform:translate(35vw,-65vh) rotate(-45deg);
-  }
-}
-
-@media (max-width:560px){
+  /* ---------- SECRET TERMINAL ---------- */
 
   .terminal-trigger{
-    left:14px;
-    bottom:14px;
+    position:fixed;
+    left:18px;
+    bottom:18px;
+    z-index:45;
 
-    width:38px;
-    height:38px;
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--bg-panel);
+    color:var(--cyan);
+    border:1px solid var(--line-dim);
+
+    font-family:var(--font-mono);
+    font-size:0.9rem;
+
+    cursor:pointer;
+
+    opacity:0.7;
+    transition:
+      opacity .2s ease,
+      border-color .2s ease,
+      color .2s ease,
+      transform .2s ease;
+  }
+
+  .terminal-trigger:hover{
+    opacity:1;
+    color:var(--amber);
+    border-color:var(--amber);
+    transform:translateY(-2px);
   }
 
   .terminal-overlay{
-    padding:12px;
+    position:fixed;
+    inset:0;
+    z-index:150;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:24px;
+
+    background:rgba(4,14,25,0.76);
+    backdrop-filter:blur(7px);
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:
+      opacity .2s ease,
+      visibility .2s ease;
+  }
+
+  .terminal-overlay.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
   }
 
   .terminal-window{
-    max-height:88vh;
+    width:min(820px, 100%);
+    max-height:min(620px, 85vh);
+
+    display:flex;
+    flex-direction:column;
+
+    background:#071a2d;
+    border:1px solid var(--line-dim);
+
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.45),
+      inset 0 0 40px rgba(0,0,0,.18);
+
+    transform:translateY(12px) scale(.98);
+    transition:transform .2s ease;
+  }
+
+  .terminal-overlay.open .terminal-window{
+    transform:translateY(0) scale(1);
+  }
+
+  .terminal-header{
+    min-height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 14px;
+
+    border-bottom:1px solid var(--line-dim);
+
+    font-family:var(--font-mono);
+    font-size:.68rem;
+    letter-spacing:.08em;
+
+    color:var(--muted);
+  }
+
+  .terminal-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .terminal-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px rgba(127,211,232,.45);
+  }
+
+  .terminal-close{
+    background:none;
+    border:0;
+    color:var(--muted);
+
+    font-family:var(--font-mono);
+    font-size:1rem;
+
+    cursor:pointer;
+    padding:4px 7px;
+  }
+
+  .terminal-close:hover{
+    color:var(--amber);
   }
 
   .terminal-output{
-    padding:16px;
-    font-size:.72rem;
+    flex:1;
+    min-height:280px;
+    max-height:480px;
+
+    overflow-y:auto;
+
+    padding:20px;
+
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    line-height:1.75;
+
+    color:var(--line);
+
+    scrollbar-width:thin;
+    scrollbar-color:var(--line-dim) transparent;
+  }
+
+  .terminal-line{
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+
+  .terminal-line.command{
+    color:var(--cyan);
+  }
+
+  .terminal-line.system{
+    color:var(--muted);
+  }
+
+  .terminal-line.success{
+    color:var(--amber);
+  }
+
+  .terminal-line.error{
+    color:#e89090;
   }
 
   .terminal-prompt{
-    padding:10px 12px;
-    font-size:.72rem;
+    display:flex;
+    align-items:center;
+
+    border-top:1px solid var(--line-dim);
+
+    padding:12px 16px;
+
+    font-family:var(--font-mono);
+    font-size:.78rem;
   }
 
   .terminal-prompt-label{
-    font-size:.68rem;
-  }
-}
-
-@media (prefers-reduced-motion:reduce){
-
-  .terminal-overlay,
-  .terminal-window{
-    transition:none;
+    color:var(--cyan);
+    white-space:nowrap;
   }
 
-  .terminal-launch.active,
-  .terminal-launch.active .launch-rocket{
-    animation:none;
-  }
-}
+  .terminal-input{
+    flex:1;
 
+    min-width:0;
+
+    margin-left:8px;
+
+    background:transparent;
+    border:0;
+    outline:0;
+
+    color:var(--line);
+
+    font:inherit;
+    caret-color:var(--amber);
+  }
+
+  .terminal-input::selection{
+    background:var(--cyan);
+    color:var(--bg);
+  }
+
+  .terminal-cursor{
+    color:var(--amber);
+  }
+
+  @media (max-width:560px){
+
+    .terminal-trigger{
+      left:14px;
+      bottom:14px;
+
+      width:38px;
+      height:38px;
+    }
+
+    .terminal-overlay{
+      padding:12px;
+    }
+
+    .terminal-window{
+      max-height:88vh;
+    }
+
+    .terminal-output{
+      padding:16px;
+      font-size:.72rem;
+    }
+
+    .terminal-prompt{
+      padding:10px 12px;
+      font-size:.72rem;
+    }
+
+    .terminal-prompt-label{
+      font-size:.68rem;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+
+    .terminal-overlay,
+    .terminal-window{
+      transition:none;
+    }
+  }
 
 </style>
 </head>
@@ -1284,13 +1232,13 @@
 
 <a href="#top" class="to-top mono" id="toTop" aria-label="Back to top">↑</a>
 
-    <!-- SECRET TERMINAL -->
+<!-- SECRET TERMINAL -->
 
 <button
   class="terminal-trigger mono"
   id="terminalTrigger"
   aria-label="Open terminal"
-  title="Open terminal (Ctrl + K)"
+  title="Open terminal (press ~)"
 >
   &gt;_
 </button>
@@ -1352,10 +1300,6 @@
 
   </div>
 
-</div>
-
-<div class="terminal-launch" id="terminalLaunch" aria-hidden="true">
-  <div class="launch-rocket">🚀</div>
 </div>
 
 <script>
@@ -1623,6 +1567,9 @@
       print('status      → Current system status');
       print('date        → Kathmandu system time');
       print('neofetch    → System information');
+      print('whoami      → Who are you?');
+      print('sudo        → Try it');
+      print('rm -rf      → Please don\'t');
       print('clear       → Clear terminal');
       print('exit        → Close terminal');
       print('');
@@ -1686,7 +1633,7 @@
       print('ENGINEERING SPECIFICATION','success');
       print('');
       print('SOFTWARE');
-      print('  Python       █████░░░░░░');
+      print('  Python       █████░░░░░');
       print('  C/C++        ███████░░░');
       print('  Git          ██████░░░░');
       print('');
@@ -1696,8 +1643,8 @@
       print('  Simulation   ██░░░░░░░░');
       print('');
       print('PHYSICS & MATH');
-      print('  Mathematics   █████████░');
-      print('  Physics       ████████░░');
+      print('  Mathematics  █████████░');
+      print('  Physics      ████████░░');
       print('');
 
       return;
@@ -1833,8 +1780,53 @@
     }
 
     // ========================================================
-    // ONLY SECRET COMMAND LEFT
+    // SECRET COMMANDS
     // ========================================================
+
+    // sudo (checked first so "sudo rm -rf /" is also denied)
+
+    if(
+      command === 'sudo' ||
+      command.indexOf('sudo ') === 0
+    ){
+
+      print('');
+      print('Nice try. Permission denied.','error');
+      print('');
+
+      return;
+    }
+
+    // whoami
+
+    if(command === 'whoami'){
+
+      print('');
+      print('nivalbus','success');
+      print('');
+
+      return;
+    }
+
+    // rm -rf
+
+    if(
+      command === 'rm -rf' ||
+      command.indexOf('rm -rf ') === 0
+    ){
+
+      print('');
+      print('Deleting Kathmandu...','error');
+
+      setTimeout(function(){
+        print('Just kidding.','success');
+        print('');
+      },900);
+
+      return;
+    }
+
+    // 42
 
     if(command === '42'){
 
