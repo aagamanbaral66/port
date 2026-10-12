@@ -477,6 +477,60 @@
   .offduty-card h3{ font-size:1.15rem; font-weight:600; margin-bottom:12px; }
   .offduty-card p{ color:var(--muted); font-size:0.95rem; }
 
+  /* ---------- OFF-DUTY ARCHIVE (SHEET 05) ---------- */
+  #offduty .drawer-radio{
+    position:absolute; opacity:0; pointer-events:none;
+  }
+  #offduty .drawer-tabs{
+    display:flex; flex-wrap:wrap; gap:6px 26px;
+    border-bottom:1px solid var(--line-dim); margin-bottom:28px;
+  }
+  #offduty .drawer-tab{
+    border-bottom:1px solid transparent; cursor:pointer;
+    font-family:var(--font-mono); font-size:0.76rem; letter-spacing:0.1em;
+    color:var(--muted); padding:0 0 10px; margin-bottom:-1px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  #offduty .drawer-tab:hover{ color:var(--line); }
+  #offduty .drawer-panel{ display:none; }
+
+  /* tab switching: radio checked -> show its panel, highlight its tab */
+  #d-games:checked   ~ #p-games,
+  #d-screen:checked  ~ #p-screen,
+  #d-books:checked   ~ #p-books,
+  #d-hobbies:checked ~ #p-hobbies{ display:block; }
+
+  #d-games:checked   ~ .drawer-tabs label[for="d-games"],
+  #d-screen:checked  ~ .drawer-tabs label[for="d-screen"],
+  #d-books:checked   ~ .drawer-tabs label[for="d-books"],
+  #d-hobbies:checked ~ .drawer-tabs label[for="d-hobbies"]{
+    color:var(--line); border-color:var(--amber);
+  }
+
+  /* keyboard focus */
+  #d-games:focus-visible   ~ .drawer-tabs label[for="d-games"],
+  #d-screen:focus-visible  ~ .drawer-tabs label[for="d-screen"],
+  #d-books:focus-visible   ~ .drawer-tabs label[for="d-books"],
+  #d-hobbies:focus-visible ~ .drawer-tabs label[for="d-hobbies"]{
+    outline:2px solid var(--amber); outline-offset:4px;
+  }
+
+  #offduty .archive-grid .project-card{ padding-top:30px; }
+  #offduty .archive-grid .project-card p{ margin-bottom:14px; }
+  #offduty .meter{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em; color:var(--muted);
+  }
+  #offduty .meter .skill-bar{ font-size:0.9rem; }
+  #offduty .meter.stalled .skill-bar{ color:var(--amber); }
+  #offduty .stuck-note{
+    font-family:var(--font-mono); font-size:0.7rem; color:var(--amber);
+    letter-spacing:0.04em; margin-top:10px;
+  }
+  @media (max-width:560px){
+    #offduty .drawer-tabs{ gap:6px 18px; }
+  }
+
   /* ---------- CONTACT ---------- */
   .contact-note{ max-width:52ch; color:var(--muted); margin-bottom:40px; font-size:1.02rem; }
 
@@ -1206,57 +1260,160 @@
     </div>
   </section>
 
+  <!-- SHEET 05: OFF-DUTY ARCHIVE -->
   <section class="section" id="offduty">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 05 — OFF-DUTY</span>
-        <h2>When I'm not studying</h2>
+        <span class="sheet-tag">SHEET 05 — OFF-DUTY ARCHIVE</span>
+        <h2>The human behind the engineer</h2>
       </div>
 
-      <div class="project-grid reveal">
-
-        <article class="project-card">
-          <span class="fig-tag">FOOTBALL</span>
-          <h3>Liverpool FC</h3>
-          <p>You'll never walk alone.</p>
-        </article>
-
-        <article class="project-card">
-          <span class="fig-tag">MOTORSPORT</span>
-          <h3>Formula 1</h3>
-          <p>Never missed a GP, especially not when Lewis is on the grid.</p>
-        </article>
-
-        <article class="project-card">
-          <span class="fig-tag">HOBBY</span>
-          <h3>Chess</h3>
-          <p>I've been playing since I was a kid but let's not reveal my elo.</p>
-        </article>
-
-        <article class="project-card">
-          <span class="fig-tag">HOBBY</span>
-          <h3>Pi</h3>
-          <p>Memorized 101 digits of pi at some point. Total nerd stuff.</p>
-        </article>
-
-      </div>
       <!--
-      <div class="reveal" style="margin-top:48px; max-width:720px;">
-  <span class="fig-tag">FLIGHT LOG · 3 RODE · 21 TYPES SEEN</span>
-  <p style="color:var(--muted); font-size:0.88rem; margin-bottom:14px;">Amber = I've flown on it. The rest I've just seen.</p>
-  <dl class="spec-sheet">
-    <div class="spec-row"><dt>ATR</dt><dd class="chip-row log-chips"><span class="chip rode">72-500</span><span class="chip">72-600</span></dd></div>
-    <div class="spec-row"><dt>BAE</dt><dd class="chip-row log-chips"><span class="chip rode">Jetstream 41</span></dd></div>
-    <div class="spec-row"><dt>DE HAVILLAND CANADA</dt><dd class="chip-row log-chips"><span class="chip rode">Dash 8-Q400</span></dd></div>
-    <div class="spec-row"><dt>BOMBARDIER</dt><dd class="chip-row log-chips"><span class="chip">CRJ200</span></dd></div>
-    <div class="spec-row"><dt>AIRBUS</dt><dd class="chip-row log-chips"><span class="chip">A319</span><span class="chip">A320</span><span class="chip">A320neo</span><span class="chip">A321neo</span><span class="chip">A330</span><span class="chip">A400M Atlas</span></dd></div>
-    <div class="spec-row"><dt>BOEING</dt><dd class="chip-row log-chips"><span class="chip">737</span><span class="chip">737 MAX 8</span><span class="chip">747</span><span class="chip">767</span><span class="chip">777F</span><span class="chip">787-8</span><span class="chip">787-10</span><span class="chip">787-9</span><span class="chip">C-17 Globemaster III</span></dd></div>
-    <div class="spec-row"><dt>LOCKHEED MARTIN</dt><dd class="chip-row log-chips"><span class="chip">C-130J Super Hercules</span></dd></div>
-    <div class="spec-row"><dt>XI'AN</dt><dd class="chip-row log-chips"><span class="chip">Y-20</span></dd></div>
-    <div class="spec-row"><dt>SHAANXI</dt><dd class="chip-row log-chips"><span class="chip">Y-8</span></dd></div>
-  </dl>
-</div>
--->
+        HOW TO ADD AN ENTRY: copy any <article> block below, paste it inside the
+        right panel's <div class="project-grid archive-grid">, edit the text.
+        Optional bits (delete the line if you don't want it):
+          status-stamp  = dashed corner label
+          meter         = impact bar (█ filled, ░ empty, 5 total)
+          meter stalled = stalled-build bar (10 total)
+          chip-row      = small tags
+      -->
+
+      <div class="reveal">
+
+        <!-- radios must stay BEFORE the tabs and panels -->
+        <input type="radio" name="drawer" id="d-books" class="drawer-radio" checked>
+        <input type="radio" name="drawer" id="d-games" class="drawer-radio">
+        <input type="radio" name="drawer" id="d-screen" class="drawer-radio">
+        <input type="radio" name="drawer" id="d-hobbies" class="drawer-radio">
+
+        <div class="drawer-tabs">
+          <label class="drawer-tab" for="d-books">BOOKS READ</label>
+          <label class="drawer-tab" for="d-games">GAMES PLAYED</label>
+          <label class="drawer-tab" for="d-screen">MOVIES &amp; SERIES</label>
+          <label class="drawer-tab" for="d-hobbies">HOBBIES</label>
+        </div>
+
+                <!-- ===== BOOKS ===== -->
+        <div class="drawer-panel" id="p-books">
+          <div class="project-grid archive-grid">
+
+            <article class="project-card">
+              <span class="fig-tag">BOOK. 01</span>
+              <span class="status-stamp mono">READING</span>
+              <h3>Animal Farm</h3>
+              <p>George Orwell.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">BOOK. 02</span>
+              <h3>The Theory of Everything</h3>
+              <p>Stephen Hawking.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">BOOK. 03</span>
+              <h3>Little Kids First Big Book of Space</h3>
+              <p>Read this as an 8 year old kid and it got me interested into astronomy and space.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ===== GAMES ===== -->
+        <div class="drawer-panel" id="p-games">
+          <div class="project-grid archive-grid">
+
+            <article class="project-card">
+              <span class="fig-tag">GAME. 01</span>
+              <h3>Elden Ring</h3>
+              <p>My favourite piece of art.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">GAME. 02</span>
+              <h3>Ghost of Tsushima</h3>
+              <p>Such a beautiful game.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">GAME. 03</span>
+              <h3>Uncharted 4</h3>
+              <p>First ever I played.</p>
+            </article>
+
+     
+
+          </div>
+        </div>
+
+        <!-- ===== MOVIES & SERIES ===== -->
+        <div class="drawer-panel" id="p-screen">
+          <div class="project-grid archive-grid">
+
+            <article class="project-card">
+              <span class="fig-tag">FILM. 01</span>
+              <h3>Interstellar</h3>
+              <p>Made me fall in love with space and time.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">FILM. 02</span>
+              <h3>Ironman</h3>
+              <p>One of my many inspirations to be an engineer.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">SERIES. 01</span>
+              <h3>One Piece</h3>
+              <p>The series that inspired me to pursue my dreams.</p>
+            </article>
+
+          </div>
+        </div>
+
+
+
+        <!-- ===== HOBBIES ===== -->
+        <div class="drawer-panel" id="p-hobbies">
+          <div class="project-grid archive-grid">
+
+            <article class="project-card">
+              <span class="fig-tag">FOOTBALL</span>
+              <h3>Liverpool FC</h3>
+              <p>You'll never walk alone.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">MOTORSPORT</span>
+              <h3>Formula 1</h3>
+              <p>Never missed a GP, especially not when Lewis is on the grid.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">HOBBY</span>
+              <h3>Chess</h3>
+              <p>I've been playing since I was a kid but let's not reveal my elo.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">HOBBY</span>
+              <h3>Pi</h3>
+              <p>Memorized 101 digits of pi. Total nerd stuff.</p>
+            </article>
+
+            <article class="project-card">
+              <span class="fig-tag">RABBIT HOLE</span>
+              <h3>Smart people explaining stuff</h3>
+              <p>Veritasium, Brian Cox, Vsauce, Nile Red.</p>
+              <div class="chip-row" style="margin-top:14px;"><span class="chip">YouTube</span></div>
+            </article>
+
+
+          </div>
+        </div>
+
+      </div>
+
       <div class="reveal" style="margin-top:48px; max-width:520px;">
         <span class="fig-tag">NOW · UPDATED 3 OCT 2026</span>
         <dl class="spec-sheet">
