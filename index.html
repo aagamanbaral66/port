@@ -217,6 +217,42 @@
   .draw-path{ stroke:var(--cyan); stroke-width:1.6; fill:none; }
   .star{ fill:var(--line); }
 
+  /* ---------- INTERACTIVE FLIGHT PLAN ---------- */
+  .wp{ cursor:pointer; outline:none; }
+  .wp .hit{ fill:transparent; stroke:none; }
+  .wp .ring{ fill:var(--bg); stroke:var(--cyan); stroke-width:1.8; transition:fill .2s ease, stroke .2s ease; }
+  .wp.future .ring{ stroke-dasharray:3 2.5; }
+  .wp text{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em; fill:var(--muted); transition:fill .2s ease; }
+  .wp:hover .ring, .wp.on .ring{ fill:var(--amber); stroke:var(--amber); }
+  .wp:hover text, .wp.on text{ fill:var(--line); }
+  .wp:focus-visible .hit{ stroke:var(--amber); stroke-width:1.5; stroke-dasharray:3 3; }
+  .wp .pulse{
+    fill:none; stroke:var(--amber); stroke-width:2; pointer-events:none;
+    transform-box:fill-box; transform-origin:center; opacity:0;
+    animation:wp-pulse 1.8s ease-out 2.8s 2;
+  }
+  @keyframes wp-pulse{
+    0%{ transform:scale(1); opacity:0.9; }
+    100%{ transform:scale(3.4); opacity:0; }
+  }
+  #craft{ transition:transform .8s cubic-bezier(.4,0,.2,1); pointer-events:none; }
+  .wp-pane{ position:absolute; top:0; left:0; width:min(270px, 62%); }
+  .wp-hint{ font-size:0.68rem; letter-spacing:0.14em; color:var(--muted); margin:0; }
+  .wp-card{
+    background:rgba(15,47,78,0.94); border:1px solid var(--line-dim);
+    border-left:2px solid var(--amber); padding:14px 16px;
+  }
+  .wp-card[hidden], .wp-hint[hidden]{ display:none; }
+  .wp-label{ display:block; font-size:0.7rem; letter-spacing:0.1em; color:var(--cyan); margin-bottom:6px; }
+  .wp-card h3{ font-family:var(--font-body); font-weight:600; font-size:1rem; margin-bottom:6px; color:var(--line); }
+  .wp-card p{ color:var(--muted); font-size:0.88rem; line-height:1.5; }
+  .wp-link{ display:inline-block; margin-top:10px; font-size:0.66rem; letter-spacing:0.1em; color:var(--amber); text-decoration:none; }
+  .wp-link:hover{ text-decoration:underline; }
+  @media (max-width:760px){
+    .wp-pane{ position:static; width:100%; margin-top:12px; }
+    .hero-art{ opacity:1; }
+  }
+
   /* ---------- SECTION HEAD ---------- */
   .section{ padding:clamp(72px, 9vw, 110px) 0; border-top:1px solid var(--line-dim); }
   .section-head{ margin-bottom:52px; }
@@ -912,8 +948,8 @@
       <a href="#trajectory" class="btn-primary">VIEW FLIGHT PLAN ↓</a>
     </div>
 
-    <div class="hero-art" aria-hidden="true">
-      <svg viewBox="0 0 640 520" preserveAspectRatio="xMidYMid meet">
+    <div class="hero-art">
+      <svg viewBox="0 0 640 520" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Flight plan with four waypoints. Select one for details.">
         <g class="star">
           <circle cx="520" cy="60" r="2"></circle>
           <circle cx="560" cy="95" r="1.4"></circle>
@@ -934,17 +970,48 @@
 
         <path class="draw-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7"></path>
 
-        <g transform="translate(60,470) rotate(-35)">
-          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" style="fill:var(--amber)"></path>
+        <circle cx="540" cy="90" r="5" style="fill:var(--cyan)"></circle>
+
+        <g class="wp" tabindex="0" role="button" data-i="0" data-x="60" data-y="470" data-a="79.4" aria-label="Waypoint 1">
+          <circle class="hit" cx="60" cy="470" r="30"></circle>
+          <circle class="ring" cx="60" cy="470" r="7"></circle>
+          <text x="60" y="452" text-anchor="start">WP01</text>
+        </g>
+        <g class="wp" tabindex="0" role="button" data-i="1" data-x="216" data-y="405" data-a="57.2" aria-label="Waypoint 2">
+          <circle class="hit" cx="216" cy="405" r="30"></circle>
+          <circle class="ring" cx="216" cy="405" r="7"></circle>
+          <text x="230" y="428" text-anchor="start">WP02</text>
+        </g>
+        <g class="wp" tabindex="0" role="button" data-i="2" data-x="371" data-y="275" data-a="45.2" aria-label="Waypoint 3">
+          <circle class="hit" cx="371" cy="275" r="30"></circle>
+          <circle class="pulse" cx="371" cy="275" r="7"></circle>
+          <circle class="ring" cx="371" cy="275" r="7"></circle>
+          <text x="385" y="298" text-anchor="start">WP03</text>
+        </g>
+        <g class="wp future" tabindex="0" role="button" data-i="3" data-x="540" data-y="90" data-a="40.6" aria-label="Waypoint 4">
+          <circle class="hit" cx="540" cy="90" r="30"></circle>
+          <circle class="ring" cx="540" cy="90" r="7"></circle>
+          <text x="526" y="152" text-anchor="end">WP04</text>
         </g>
 
-        <circle cx="540" cy="90" r="5" style="fill:var(--cyan)"></circle>
+        <g id="craft" style="transform:translate(60px,470px) rotate(79.4deg)">
+          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" style="fill:var(--amber)"></path>
+        </g>
 
         <line x1="20" y1="490" x2="300" y2="490" style="stroke:var(--line-dim)" stroke-width="1"></line>
         <line x1="20" y1="484" x2="20" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
         <line x1="160" y1="484" x2="160" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
         <line x1="300" y1="484" x2="300" y2="496" style="stroke:var(--line-dim)" stroke-width="1"></line>
       </svg>
+      <div class="wp-pane" aria-live="polite">
+        <p class="wp-hint mono" id="wpHint">SELECT A WAYPOINT</p>
+        <div class="wp-card" id="wpCard" hidden>
+          <span class="wp-label mono" id="wpLabel"></span>
+          <h3 id="wpTitle"></h3>
+          <p id="wpText"></p>
+          <a class="wp-link mono" href="#trajectory">FULL FLIGHT PLAN ↓</a>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -2008,6 +2075,51 @@
 
 })();
 
+</script>
+
+<script>
+// interactive flight plan: waypoints on the hero path are driven by the Trajectory list
+(function(){
+  var items = document.querySelectorAll('#trajectory .tl-list > .tl-item');
+  var wps = document.querySelectorAll('.wp');
+  var craft = document.getElementById('craft');
+  var card = document.getElementById('wpCard');
+  var hint = document.getElementById('wpHint');
+  if (!items.length || !wps.length || !craft || !card || !hint) return;
+
+  function field(item, sel){ var el = item.querySelector(sel); return el ? el.textContent : ''; }
+
+  var current = -1;
+  function select(i){
+    if (i === current) {                       // second click closes the card
+      current = -1;
+      card.hidden = true; hint.hidden = false;
+      wps.forEach(function(w){ w.classList.remove('on'); });
+      return;
+    }
+    current = i;
+    var pulse = document.querySelector('.wp .pulse');   // hint served its purpose
+    if (pulse) pulse.remove();
+    var item = items[i];
+    if (!item) return;
+    document.getElementById('wpLabel').textContent = field(item, '.tl-label');
+    document.getElementById('wpTitle').textContent = field(item, 'h3');
+    document.getElementById('wpText').textContent = field(item, 'p');
+    card.hidden = false; hint.hidden = true;
+    wps.forEach(function(w){ w.classList.toggle('on', Number(w.getAttribute('data-i')) === i); });
+    var w = wps[i];
+    craft.style.transform = 'translate(' + w.getAttribute('data-x') + 'px,' + w.getAttribute('data-y') + 'px) rotate(' + w.getAttribute('data-a') + 'deg)';
+  }
+
+  wps.forEach(function(w, i){
+    var item = items[i];
+    if (item) w.setAttribute('aria-label', field(item, '.tl-label') + ': ' + field(item, 'h3'));
+    w.addEventListener('click', function(){ select(i); });
+    w.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(i); }
+    });
+  });
+})();
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b214818e5f754a21a29c08c9786966ad"}'></script><!-- End Cloudflare Web Analytics -->
