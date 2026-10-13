@@ -215,16 +215,32 @@
   .hero-art{ position:relative; width:100%; height:auto; min-height:340px; }
   .hero-art svg{ display:block; width:100%; height:auto; overflow:visible; }
   .draw-path{ stroke:var(--cyan); stroke-width:1.6; fill:none; }
+  .plan-path{ stroke:var(--cyan); stroke-width:1.6; fill:none; opacity:.55; }
+  .flown-path{
+    stroke:var(--cyan); stroke-width:2; fill:none;
+    transition:stroke-dasharray .8s cubic-bezier(.4,0,.2,1);
+  }
   .star{ fill:var(--line); }
 
   /* ---------- INTERACTIVE FLIGHT PLAN ---------- */
   .wp{ cursor:pointer; outline:none; }
   .wp .hit{ fill:transparent; stroke:none; }
-  .wp .ring{ fill:var(--bg); stroke:var(--cyan); stroke-width:1.8; transition:fill .2s ease, stroke .2s ease; }
+  .wp .ring{
+    fill:var(--bg); stroke:var(--cyan); stroke-width:1.8;
+    transform-box:fill-box; transform-origin:center;
+    transition:fill .2s ease, stroke .2s ease, transform .35s cubic-bezier(.4,0,.2,1);
+  }
   .wp.future .ring{ stroke-dasharray:3 2.5; }
-  .wp text{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em; fill:var(--muted); transition:fill .2s ease; }
-  .wp:hover .ring, .wp.on .ring{ fill:var(--amber); stroke:var(--amber); }
-  .wp:hover text, .wp.on text{ fill:var(--line); }
+  .wp text{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em; fill:var(--muted); opacity:.65; transition:fill .2s ease, opacity .2s ease; }
+  .wp:hover .ring{ fill:var(--amber); stroke:var(--amber); }
+  .wp:hover text, .wp.on text, .wp.here text{ fill:var(--line); opacity:1; }
+  /* craft is parked here: ring opens into a hollow reticle */
+  .wp.here .ring,
+  .wp.here:hover .ring{
+    fill:transparent; stroke:var(--amber);
+    transform:scale(2.4);
+    vector-effect:non-scaling-stroke;
+  }
   .wp:focus-visible .hit{ stroke:var(--amber); stroke-width:1.5; stroke-dasharray:3 3; }
   .wp .pulse{
     fill:none; stroke:var(--amber); stroke-width:2; pointer-events:none;
@@ -250,7 +266,7 @@
   .wp-link:hover{ text-decoration:underline; }
   @media (max-width:760px){
     .wp-pane{ position:static; width:100%; margin-top:12px; }
-    .hero-art{ opacity:1; }
+    
   }
 
   /* ---------- SECTION HEAD ---------- */
@@ -606,8 +622,8 @@
       min-height:0;
       width:min(100%, 560px);
       margin:0 auto;
-      opacity:0.72;
     }
+    .hero-art svg{ opacity:0.85; }
     .corner-tl,.corner-tr{ top:82px; }
     .corner-bl,.corner-br{ bottom:12px; }
 
@@ -1022,7 +1038,13 @@
         <circle cx="540" cy="90" r="34" fill="none" style="stroke:var(--line-dim)" stroke-width="1"></circle>
         <circle cx="540" cy="90" r="54" fill="none" style="stroke:var(--line-dim)" stroke-width="1"></circle>
 
-        <path class="draw-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7"></path>
+        <defs>
+          <mask id="routeMask" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="520">
+            <path class="draw-path" d="M60,470 C 220,440 360,300 540,90" style="stroke:#fff;stroke-width:8"></path>
+          </mask>
+        </defs>
+        <path class="plan-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7" mask="url(#routeMask)"></path>
+        <path id="flown" class="flown-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="0 2000" mask="url(#routeMask)"></path>
 
         <circle cx="540" cy="90" r="5" style="fill:var(--cyan)"></circle>
 
@@ -1036,7 +1058,7 @@
           <circle class="ring" cx="216" cy="405" r="7"></circle>
           <text x="230" y="428" text-anchor="start">WP02</text>
         </g>
-        <g class="wp" tabindex="0" role="button" data-i="2" data-x="371" data-y="275" data-a="45.2" aria-label="Waypoint 3">
+        <g class="wp here" tabindex="0" role="button" data-i="2" data-x="371" data-y="275" data-a="45.2" aria-label="Waypoint 3">
           <circle class="hit" cx="371" cy="275" r="30"></circle>
           <circle class="pulse" cx="371" cy="275" r="7"></circle>
           <circle class="ring" cx="371" cy="275" r="7"></circle>
@@ -1048,8 +1070,8 @@
           <text x="526" y="152" text-anchor="end">WP04</text>
         </g>
 
-        <g id="craft" style="transform:translate(60px,470px) rotate(79.4deg)">
-          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" style="fill:var(--amber)"></path>
+        <g id="craft" style="transform:translate(371px,275px) rotate(45.2deg) scale(.75)">
+          <path d="M0,-9 L9,9 L0,4 L-9,9 Z" style="fill:var(--line);stroke:var(--bg);stroke-width:1.2;stroke-linejoin:round"></path>
         </g>
 
         <line x1="20" y1="490" x2="300" y2="490" style="stroke:var(--line-dim)" stroke-width="1"></line>
@@ -2238,34 +2260,70 @@
 // interactive flight plan: waypoints on the hero path are driven by the Trajectory list
 (function(){
   var items = document.querySelectorAll('#trajectory .tl-list > .tl-item');
-  var wps = document.querySelectorAll('.wp');
+  var wps   = document.querySelectorAll('.wp');
   var craft = document.getElementById('craft');
-  var card = document.getElementById('wpCard');
-  var hint = document.getElementById('wpHint');
+  var card  = document.getElementById('wpCard');
+  var hint  = document.getElementById('wpHint');
+  var flown = document.getElementById('flown');
   if (!items.length || !wps.length || !craft || !card || !hint) return;
 
   function field(item, sel){ var el = item.querySelector(sel); return el ? el.textContent : ''; }
 
+  // how far along the route each waypoint sits (nearest point on the curve)
+  var total = flown ? flown.getTotalLength() : 0;
+  function lenAt(x, y){
+    var best = 0, bestD = Infinity;
+    for (var l = 0; l <= total; l += 2){
+      var p = flown.getPointAtLength(l);
+      var d = (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+      if (d < bestD){ bestD = d; best = l; }
+    }
+    return best;
+  }
+  var lens = [];
+  wps.forEach(function(w){
+    lens.push(flown ? lenAt(Number(w.getAttribute('data-x')), Number(w.getAttribute('data-y'))) : 0);
+  });
+
+  // solid line up to the craft, dashed plan beyond it
+  function setFlown(i){
+    if (flown) flown.style.strokeDasharray = lens[i] + ' ' + (total + 50);
+  }
+
+  // craft starts at whichever waypoint is marked .here in the HTML (WP03 / NOW)
+  var start = 0;
+  wps.forEach(function(w, idx){ if (w.classList.contains('here')) start = idx; });
+  setFlown(start);
+
   var current = -1;
   function select(i){
-    if (i === current) {                       // second click closes the card
+    var w = wps[i];
+    var item = items[i];
+    if (!w || !item) return;
+
+    // craft always flies to the clicked waypoint, reticle and solid line follow it
+    craft.style.transform =
+      'translate(' + w.getAttribute('data-x') + 'px,' + w.getAttribute('data-y') + 'px) ' +
+      'rotate(' + w.getAttribute('data-a') + 'deg) scale(.75)';
+    wps.forEach(function(x, idx){ x.classList.toggle('here', idx === i); });
+    setFlown(i);
+
+    if (i === current) {                     // second click closes the card
       current = -1;
       card.hidden = true; hint.hidden = false;
-      wps.forEach(function(w){ w.classList.remove('on'); });
+      wps.forEach(function(x){ x.classList.remove('on'); });
       return;
     }
+
     current = i;
     var pulse = document.querySelector('.wp .pulse');   // hint served its purpose
     if (pulse) pulse.remove();
-    var item = items[i];
-    if (!item) return;
+
     document.getElementById('wpLabel').textContent = field(item, '.tl-label');
     document.getElementById('wpTitle').textContent = field(item, 'h3');
-    document.getElementById('wpText').textContent = field(item, 'p');
+    document.getElementById('wpText').textContent  = field(item, 'p');
     card.hidden = false; hint.hidden = true;
-    wps.forEach(function(w){ w.classList.toggle('on', Number(w.getAttribute('data-i')) === i); });
-    var w = wps[i];
-    craft.style.transform = 'translate(' + w.getAttribute('data-x') + 'px,' + w.getAttribute('data-y') + 'px) rotate(' + w.getAttribute('data-a') + 'deg)';
+    wps.forEach(function(x, idx){ x.classList.toggle('on', idx === i); });
   }
 
   wps.forEach(function(w, i){
