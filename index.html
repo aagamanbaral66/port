@@ -970,6 +970,14 @@
       transition:none;
     }
   }
+      #offduty .redact{
+  background:var(--line); color:var(--line);
+  padding:2px 10px; cursor:not-allowed;
+  transition:background .2s ease, color .2s ease;
+}
+#offduty .redact:hover,
+#offduty .redact:focus-visible{ background:transparent; color:var(--amber); }
+
 
 </style>
 </head>
@@ -1413,8 +1421,13 @@
 
             <article class="project-card">
               <span class="fig-tag">HOBBY</span>
+              <span class="status-stamp mono">CLASSIFIED</span>
               <h3>Chess</h3>
               <p>I've been playing since I was a kid but let's not reveal my elo.</p>
+              <div class="meter">
+                <span>ELO</span>
+                <span class="redact" tabindex="0">NOPE</span>
+              </div>
             </article>
 
             <article class="project-card">
@@ -1437,11 +1450,11 @@
       </div>
 
       <div class="reveal" style="margin-top:48px; max-width:520px;">
-        <span class="fig-tag">NOW · UPDATED 3 OCT 2026</span>
+        <span class="fig-tag">NOW · UPDATED <span id="nowUpdated">3 OCT 2026</span></span>
         <dl class="spec-sheet">
-          <div class="spec-row"><dt>BUILDING</dt><dd>Planning a small wind tunnel. Adding stuff to this site.</dd></div>
-          <div class="spec-row"><dt>READING</dt><dd>Animal Farm - George Orwell</dd></div>
-          <div class="spec-row"><dt>WATCHING</dt><dd>Insomnia - Christopher Nolan</dd></div>
+          <div class="spec-row"><dt>BUILDING</dt><dd id="nowBuilding">Planning a small wind tunnel. Adding stuff to this site.</dd></div>
+          <div class="spec-row"><dt>READING</dt><dd id="nowReading">Animal Farm - George Orwell</dd></div>
+          <div class="spec-row"><dt>WATCHING</dt><dd id="nowWatching">Insomnia - Christopher Nolan</dd></div>
         </dl>
       </div>
     </div>
@@ -2335,6 +2348,23 @@
     });
   });
 })();
+
+
+
+
+
+
+      // NOW block from now.json
+fetch('now.json', { cache: 'no-cache' })
+  .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+  .then(function(d){
+    var map = { nowUpdated:'updated', nowBuilding:'building', nowReading:'reading', nowWatching:'watching' };
+    Object.keys(map).forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && d[map[id]]) el.textContent = d[map[id]];
+    });
+  })
+  .catch(function(){ /* keep the HTML fallback */ });
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b214818e5f754a21a29c08c9786966ad"}'></script><!-- End Cloudflare Web Analytics -->
