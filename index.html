@@ -2355,6 +2355,41 @@ fetch('now.json', { cache: 'no-cache' })
     });
   })
   .catch(function(){ /* keep the HTML fallback */ });
+
+
+// own smooth scroll for in-page links (works even when the OS disables native smooth scrolling)
+(function(){
+  function ease(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+
+  function glideTo(targetY){
+    var startY = window.scrollY;
+    var dist = targetY - startY;
+    var dur = Math.min(900, Math.max(350, Math.abs(dist) * 0.5));
+    var t0 = null;
+    function step(now){
+      if (t0 === null) t0 = now;
+      var p = Math.min(1, (now - t0) / dur);
+      window.scrollTo({ top: startY + dist * ease(p), behavior: 'instant' });
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href');
+    if (id.length < 2 && id !== '#top') return;
+    var el = id === '#top' ? document.body : document.querySelector(id);
+    if (!el) return;
+    e.preventDefault();
+    var y = id === '#top' ? 0 : el.getBoundingClientRect().top + window.scrollY;
+    glideTo(y);
+    history.pushState(null, '', id);
+  });
+})();
+
+  
 </script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b214818e5f754a21a29c08c9786966ad"}'></script><!-- End Cloudflare Web Analytics -->
