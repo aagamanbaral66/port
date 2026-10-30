@@ -675,7 +675,6 @@
   @media (max-width:560px){ .log-chips{ justify-content:flex-start; } }
 
   @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
     html{ scroll-behavior:auto; }
   }
 
@@ -963,13 +962,7 @@
     }
   }
 
-  @media (prefers-reduced-motion:reduce){
 
-    .terminal-overlay,
-    .terminal-window{
-      transition:none;
-    }
-  }
       #offduty .redact{
   background:var(--line); color:var(--line);
   padding:2px 10px; cursor:not-allowed;
@@ -1577,7 +1570,7 @@
   });
 
   // scroll reveal
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var reduceMotion = false;
   var revealEls = document.querySelectorAll('.reveal');
   if(reduceMotion){
     revealEls.forEach(function(el){ el.classList.add('in-view'); });
