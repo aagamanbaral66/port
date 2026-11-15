@@ -1499,6 +1499,15 @@ var reduceMotion = false;
     }, { passive: true });
   }
 
+  // top links (↑ button, AGN·01 badge): the hero is sticky in the side-rail layout,
+  // so a plain #top anchor thinks it's already on screen and does nothing. Scroll to y=0 directly.
+  document.querySelectorAll('a[href="#top"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+  });
+
 // ============================================================
 // SECRET TERMINAL
 // ============================================================
