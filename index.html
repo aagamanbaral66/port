@@ -7,7 +7,7 @@
 <title>Aagaman Baral | Aerospace Engineering</title>
 <meta name="description" content="Personal site of Aagaman Baral — first-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu.">
 <link rel="canonical" href="https://www.aagamanbaral.com.np/">
-<meta name="theme-color" content="#0b2440">
+<meta name="theme-color" content="#1d1b19">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script type="application/ld+json">
 {
@@ -38,7 +38,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aagaman Baral | Aerospace Engineering">
-<meta property="og:description" content="First-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu. Flight plan, builds, and off-duty stuff.">
+<meta property="og:description" content="First-year BE Aerospace Engineering student at Pulchowk Campus, IOE, Kathmandu. Flight plan and builds.">
 <meta property="og:image" content="https://www.aagamanbaral.com.np/og/og.png">
 <meta property="og:url" content="https://www.aagamanbaral.com.np">
 <meta name="twitter:card" content="summary_large_image">
@@ -61,15 +61,17 @@
 <style>
   #contact{ padding-bottom: 24px; }
   :root{
-    --bg:#0b2440;
-    --bg-panel:#0f2f4e;
-    --bg-panel-2:#123a5c;
-    --line:#dfeaf3;
-    --line-dim:rgba(223,234,243,0.28);
-    --grid:rgba(223,234,243,0.06);
-    --amber:#f2a444;
-    --cyan:#7fd3e8;
-    --muted:#93b1c7;
+    --bg:#1d1b19;
+    --bg-panel:#262421;
+    --bg-panel-2:#2e2b27;
+    --line:#e9e4d8;
+    --line-dim:rgba(233,228,216,0.26);
+    --grid:rgba(233,228,216,0.05);
+    --accent:#d98a5f;
+    --pen:#a8b8bd;
+    --muted:#98958c;
+    --nav-bg:rgba(29,27,25,0.88); --card-bg:rgba(38,36,33,0.96); --tint:rgba(168,184,189,0.06);
+    --shadow:rgba(0,0,0,0.3); --inset:rgba(0,0,0,0.25);
     --font-display:'Michroma','Consolas',sans-serif;
     --font-body:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;
     --font-mono:'IBM Plex Mono','SFMono-Regular',Menlo,monospace;
@@ -98,7 +100,7 @@
   ::selection{background:var(--muted);color:#fdfbfb;}
 
   a:focus-visible, button:focus-visible{
-    outline:2px solid var(--amber);
+    outline:2px solid var(--accent);
     outline-offset:3px;
   }
 
@@ -117,7 +119,7 @@
   /* ---------- NAV ---------- */
   .nav{
     position:fixed; top:0; left:0; right:0; z-index:50;
-    background:rgba(11,36,64,0.82);
+    background:var(--nav-bg);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line-dim);
   }
@@ -130,7 +132,7 @@
   }
   .nav-badge{
     font-family:var(--font-mono); font-size:0.8rem; letter-spacing:0.08em;
-    color:var(--amber); text-decoration:none; border:1px solid var(--line-dim);
+    color:var(--accent); text-decoration:none; border:1px solid var(--line-dim);
     padding:5px 10px;
   }
   .nav-links{
@@ -142,8 +144,8 @@
     padding-bottom:3px; border-bottom:1px solid transparent;
     transition:color .2s ease, border-color .2s ease;
   }
-  .nav-links a:hover{ color:var(--line); border-color:var(--amber); }
-  .nav-links a.active{ color:var(--line); border-color:var(--amber); }
+  .nav-links a:hover{ color:var(--line); border-color:var(--accent); }
+  .nav-links a.active{ color:var(--line); border-color:var(--accent); }
   .nav-toggle{
     display:none; background:none; border:1px solid var(--line-dim); color:var(--line);
     width:36px; height:32px; cursor:pointer; font-family:var(--font-mono);
@@ -173,7 +175,7 @@
 
   .eyebrow{
     font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.14em;
-    color:var(--cyan); margin-bottom:18px; display:inline-block;
+    color:var(--pen); margin-bottom:18px; display:inline-block;
   }
   .hero-name{
     font-family:var(--font-display);
@@ -198,7 +200,7 @@
   }
   .hero-status{
     margin-top:32px; font-family:var(--font-mono); font-size:0.78rem;
-    color:var(--muted); border-left:2px solid var(--amber); padding-left:14px;
+    color:var(--muted); border-left:2px solid var(--accent); padding-left:14px;
     letter-spacing:0.04em;
   }
   .hero-status b{ color:var(--line); font-weight:500; }
@@ -206,18 +208,18 @@
     display:inline-block; margin-top:36px;
     font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.08em;
     text-decoration:none; color:var(--bg);
-    background:var(--amber); padding:13px 22px;
-    border:1px solid var(--amber);
+    background:var(--accent); padding:13px 22px;
+    border:1px solid var(--accent);
     transition:background .2s ease, color .2s ease;
   }
-  .btn-primary:hover{ background:transparent; color:var(--amber); }
+  .btn-primary:hover{ background:transparent; color:var(--accent); }
 
   .hero-art{ position:relative; width:100%; height:auto; min-height:340px; }
   .hero-art svg{ display:block; width:100%; height:auto; overflow:visible; }
-  .draw-path{ stroke:var(--cyan); stroke-width:1.6; fill:none; }
-  .plan-path{ stroke:var(--cyan); stroke-width:1.6; fill:none; opacity:.55; }
+  .draw-path{ stroke:var(--pen); stroke-width:1.6; fill:none; }
+  .plan-path{ stroke:var(--pen); stroke-width:1.6; fill:none; opacity:.55; }
   .flown-path{
-    stroke:var(--cyan); stroke-width:2; fill:none;
+    stroke:var(--pen); stroke-width:2; fill:none;
     transition:stroke-dasharray .8s cubic-bezier(.4,0,.2,1);
   }
   .star{ fill:var(--line); }
@@ -226,24 +228,24 @@
   .wp{ cursor:pointer; outline:none; }
   .wp .hit{ fill:transparent; stroke:none; }
   .wp .ring{
-    fill:var(--bg); stroke:var(--cyan); stroke-width:1.8;
+    fill:var(--bg); stroke:var(--pen); stroke-width:1.8;
     transform-box:fill-box; transform-origin:center;
     transition:fill .2s ease, stroke .2s ease, transform .35s cubic-bezier(.4,0,.2,1);
   }
   .wp.future .ring{ stroke-dasharray:3 2.5; }
   .wp text{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em; fill:var(--muted); opacity:.65; transition:fill .2s ease, opacity .2s ease; }
-  .wp:hover .ring{ fill:var(--amber); stroke:var(--amber); }
+  .wp:hover .ring{ fill:var(--accent); stroke:var(--accent); }
   .wp:hover text, .wp.on text, .wp.here text{ fill:var(--line); opacity:1; }
   /* craft is parked here: ring opens into a hollow reticle */
   .wp.here .ring,
   .wp.here:hover .ring{
-    fill:transparent; stroke:var(--amber);
+    fill:transparent; stroke:var(--accent);
     transform:scale(2.4);
     vector-effect:non-scaling-stroke;
   }
-  .wp:focus-visible .hit{ stroke:var(--amber); stroke-width:1.5; stroke-dasharray:3 3; }
+  .wp:focus-visible .hit{ stroke:var(--accent); stroke-width:1.5; stroke-dasharray:3 3; }
   .wp .pulse{
-    fill:none; stroke:var(--amber); stroke-width:2; pointer-events:none;
+    fill:none; stroke:var(--accent); stroke-width:2; pointer-events:none;
     transform-box:fill-box; transform-origin:center; opacity:0;
     animation:wp-pulse 1.8s ease-out 2.8s 2;
   }
@@ -255,14 +257,14 @@
   .wp-pane{ position:absolute; top:0; left:0; width:min(270px, 62%); }
   .wp-hint{ font-size:0.68rem; letter-spacing:0.14em; color:var(--muted); margin:0; }
   .wp-card{
-    background:rgba(15,47,78,0.94); border:1px solid var(--line-dim);
-    border-left:2px solid var(--amber); padding:14px 16px;
+    background:var(--card-bg); border:1px solid var(--line-dim);
+    border-left:2px solid var(--accent); padding:14px 16px;
   }
   .wp-card[hidden], .wp-hint[hidden]{ display:none; }
-  .wp-label{ display:block; font-size:0.7rem; letter-spacing:0.1em; color:var(--cyan); margin-bottom:6px; }
+  .wp-label{ display:block; font-size:0.7rem; letter-spacing:0.1em; color:var(--pen); margin-bottom:6px; }
   .wp-card h3{ font-family:var(--font-body); font-weight:600; font-size:1rem; margin-bottom:6px; color:var(--line); }
   .wp-card p{ color:var(--muted); font-size:0.88rem; line-height:1.5; }
-  .wp-link{ display:inline-block; margin-top:10px; font-size:0.66rem; letter-spacing:0.1em; color:var(--amber); text-decoration:none; }
+  .wp-link{ display:inline-block; margin-top:10px; font-size:0.66rem; letter-spacing:0.1em; color:var(--accent); text-decoration:none; }
   .wp-link:hover{ text-decoration:underline; }
   @media (max-width:760px){
     .wp-pane{ position:static; width:100%; margin-top:12px; }
@@ -274,7 +276,7 @@
   .section-head{ margin-bottom:52px; }
   .sheet-tag{
     display:block; font-family:var(--font-mono); font-size:0.74rem;
-    letter-spacing:0.14em; color:var(--amber); margin-bottom:14px;
+    letter-spacing:0.14em; color:var(--accent); margin-bottom:14px;
   }
   .section-head h2{
     font-family:var(--font-body); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.2rem);
@@ -299,7 +301,7 @@
   }
   .spec-row dt{ color:var(--muted); letter-spacing:0.06em; }
   .spec-row dd{ margin:0; color:var(--line); text-align:right; }
-  .spec-row a{ color:var(--cyan); text-decoration:none; }
+  .spec-row a{ color:var(--pen); text-decoration:none; }
   .spec-row a:hover{ text-decoration:underline; }
 
   /* ---------- TRAJECTORY ---------- */
@@ -309,16 +311,16 @@
   .tl-item::before{
     content:""; position:absolute; left:-7px; top:5px;
     width:12px; height:12px; border-radius:50%;
-    background:var(--amber); box-shadow:0 0 0 4px var(--bg);
+    background:var(--accent); box-shadow:0 0 0 4px var(--bg);
   }
   .tl-label{
     display:block; font-family:var(--font-mono); font-size:0.72rem;
-    letter-spacing:0.1em; color:var(--cyan); margin-bottom:8px;
+    letter-spacing:0.1em; color:var(--pen); margin-bottom:8px;
   }
   .tl-item h3{ font-family:var(--font-body); font-weight:600; font-size:1.08rem; margin-bottom:6px; }
   .tl-item p{ color:var(--muted); font-size:0.95rem; max-width:48ch; }
   .tl-item.is-future h3{ color:var(--muted); }
-  .tl-item.is-future::before{ background:transparent; border:2px solid var(--amber); }
+  .tl-item.is-future::before{ background:transparent; border:2px solid var(--accent); }
 
   .tl-fork-label{
     display:flex; align-items:center; gap:12px;
@@ -336,16 +338,16 @@
   .tl-branch-head{
     display:flex; align-items:center; gap:10px;
     font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.1em;
-    color:var(--amber); margin-bottom:20px; padding-bottom:12px;
+    color:var(--accent); margin-bottom:20px; padding-bottom:12px;
     border-bottom:1px solid var(--line-dim);
   }
   .tl-branch-head .branch-id{
-    border:1px solid var(--amber); padding:2px 7px; color:var(--amber);
+    border:1px solid var(--accent); padding:2px 7px; color:var(--accent);
   }
   .tl-branch .tl-list{ border-left:2px solid var(--line-dim); max-width:none; }
   .tl-branch.is-alt .tl-list{ border-left-style:dashed; }
-  .tl-branch.is-alt .tl-item::before{ border:2px solid var(--cyan); background:transparent; }
-  .tl-branch.is-alt .tl-label{ color:var(--cyan); }
+  .tl-branch.is-alt .tl-item::before{ border:2px solid var(--pen); background:transparent; }
+  .tl-branch.is-alt .tl-label{ color:var(--pen); }
 
   @media (max-width:700px){
     .tl-branches{ grid-template-columns:1fr; gap:36px; }
@@ -369,24 +371,24 @@
     border:1px dashed var(--line-dim);
     padding:4px 8px;
   }
-  .project-card:hover{ transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 12px 28px rgba(0,0,0,0.16); }
+  .project-card:hover{ transform:translateY(-4px); border-color:var(--pen); box-shadow:0 12px 28px var(--shadow); }
   .project-resources{
     margin-top:20px; padding-top:16px; border-top:1px dashed var(--line-dim);
   }
   .resource-label{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
     font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em;
-    color:var(--amber); margin-bottom:10px;
+    color:var(--accent); margin-bottom:10px;
   }
   .resource-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .resource-link{
     display:inline-flex; align-items:center; gap:7px;
-    border:1px solid var(--line-dim); color:var(--cyan);
+    border:1px solid var(--line-dim); color:var(--pen);
     padding:7px 9px; text-decoration:none; font-family:var(--font-mono);
     font-size:0.66rem; letter-spacing:0.03em;
     transition:border-color .2s ease, background .2s ease, color .2s ease;
   }
-  .resource-link:hover{ border-color:var(--cyan); background:rgba(127,211,232,0.06); color:var(--line); }
+  .resource-link:hover{ border-color:var(--pen); background:var(--tint); color:var(--line); }
   .resource-link.is-empty{ color:var(--muted); border-style:dashed; cursor:default; }
   .resource-link.is-empty:hover{ border-color:var(--line-dim); background:transparent; color:var(--muted); }
 
@@ -399,7 +401,7 @@
     font-size:clamp(0.85rem, 1.5vw, 0.98rem);
     line-height:1.75;
     color:var(--line);
-    box-shadow:inset 0 0 20px rgba(0,0,0,0.2);
+    box-shadow:inset 0 0 20px var(--inset);
   }
   .spec-tree-group{ margin:0 0 18px; }
   .spec-tree-group:last-child{ margin-bottom:0; }
@@ -411,10 +413,10 @@
     row-gap:2px;
   }
   .tree-branch{ color:var(--muted); flex:0 0 auto; }
-  .tree-category{ color:var(--amber); font-weight:600; letter-spacing:0.08em; display:block; margin-bottom:2px; }
+  .tree-category{ color:var(--accent); font-weight:600; letter-spacing:0.08em; display:block; margin-bottom:2px; }
   .tree-item{ color:var(--line); flex:0 0 auto; white-space:nowrap; }
   .skill-bar{
-    color:var(--cyan);
+    color:var(--pen);
     letter-spacing:2px;
     font-family:var(--font-mono);
     flex:0 0 auto;
@@ -433,8 +435,8 @@
   }
   .lab-panel:hover{
     transform:translateY(-4px);
-    border-color:var(--cyan);
-    box-shadow:0 12px 28px rgba(0,0,0,0.16);
+    border-color:var(--pen);
+    box-shadow:0 12px 28px var(--shadow);
   }
   .lab-panel h3{ font-size:1.06rem; margin-bottom:16px; }
   .lab-panel p{ color:var(--muted); font-size:0.92rem; max-width:60ch; }
@@ -448,11 +450,11 @@
   .status-item:hover{
     padding-left:12px;
     padding-right:12px;
-    background:rgba(127,211,232,0.04);
+    background:var(--tint);
   }
   .status-item span:first-child{ color:var(--line); letter-spacing:0.05em; }
-  .status-badge{ color:var(--cyan); letter-spacing:0.08em; }
-  .status-badge.next{ color:var(--amber); }
+  .status-badge{ color:var(--pen); letter-spacing:0.08em; }
+  .status-badge.next{ color:var(--accent); }
   .interest-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:18px; }
   .interest-chip{
     border:1px solid var(--line-dim); padding:11px 12px;
@@ -461,14 +463,14 @@
   }
   .interest-chip:hover{
     transform:translateY(-2px);
-    border-color:var(--cyan);
-    background:rgba(127,211,232,0.06);
+    border-color:var(--pen);
+    background:var(--tint);
     color:var(--line);
   }
   .lab-note{ margin-top:18px; color:var(--muted); font-family:var(--font-mono); font-size:0.7rem; }
   .fig-tag{
     display:block; font-family:var(--font-mono); font-size:0.7rem;
-    color:var(--amber); letter-spacing:0.1em; margin-bottom:14px;
+    color:var(--accent); letter-spacing:0.1em; margin-bottom:14px;
   }
   .project-card h3{ font-size:1.02rem; font-weight:600; margin-bottom:10px; }
   .project-card p{ color:var(--muted); font-size:0.9rem; margin-bottom:16px; }
@@ -476,75 +478,6 @@
   .chip{
     font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.04em;
     border:1px solid var(--line-dim); color:var(--muted); padding:4px 8px;
-  }
-
-  /* ---------- OFF-DUTY ---------- */
-  .offduty-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
-  .offduty-card{
-    border:1px solid var(--line-dim); padding:30px; background:var(--bg-panel-2);
-    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-  }
-  .offduty-card:hover{
-    transform:translateY(-4px);
-    border-color:var(--cyan);
-    box-shadow:0 12px 28px rgba(0,0,0,0.16);
-  }
-  .offduty-card .eyebrow{ margin-bottom:14px; }
-  .offduty-card h3{ font-size:1.15rem; font-weight:600; margin-bottom:12px; }
-  .offduty-card p{ color:var(--muted); font-size:0.95rem; }
-
-  /* ---------- OFF-DUTY ARCHIVE (SHEET 05) ---------- */
-  #offduty .drawer-radio{
-    position:absolute; opacity:0; pointer-events:none;
-  }
-  #offduty .drawer-tabs{
-    display:flex; flex-wrap:wrap; gap:6px 26px;
-    border-bottom:1px solid var(--line-dim); margin-bottom:28px;
-  }
-  #offduty .drawer-tab{
-    border-bottom:1px solid transparent; cursor:pointer;
-    font-family:var(--font-mono); font-size:0.76rem; letter-spacing:0.1em;
-    color:var(--muted); padding:0 0 10px; margin-bottom:-1px;
-    transition:color .2s ease, border-color .2s ease;
-  }
-  #offduty .drawer-tab:hover{ color:var(--line); }
-  #offduty .drawer-panel{ display:none; }
-
-  /* tab switching: radio checked -> show its panel, highlight its tab */
-  #d-games:checked   ~ #p-games,
-  #d-screen:checked  ~ #p-screen,
-  #d-books:checked   ~ #p-books,
-  #d-hobbies:checked ~ #p-hobbies{ display:block; }
-
-  #d-games:checked   ~ .drawer-tabs label[for="d-games"],
-  #d-screen:checked  ~ .drawer-tabs label[for="d-screen"],
-  #d-books:checked   ~ .drawer-tabs label[for="d-books"],
-  #d-hobbies:checked ~ .drawer-tabs label[for="d-hobbies"]{
-    color:var(--line); border-color:var(--amber);
-  }
-
-  /* keyboard focus */
-  #d-games:focus-visible   ~ .drawer-tabs label[for="d-games"],
-  #d-screen:focus-visible  ~ .drawer-tabs label[for="d-screen"],
-  #d-books:focus-visible   ~ .drawer-tabs label[for="d-books"],
-  #d-hobbies:focus-visible ~ .drawer-tabs label[for="d-hobbies"]{
-    outline:2px solid var(--amber); outline-offset:4px;
-  }
-
-  #offduty .archive-grid .project-card{ padding-top:30px; }
-  #offduty .archive-grid .project-card p{ margin-bottom:14px; }
-  #offduty .meter{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em; color:var(--muted);
-  }
-  #offduty .meter .skill-bar{ font-size:0.9rem; }
-  #offduty .meter.stalled .skill-bar{ color:var(--amber); }
-  #offduty .stuck-note{
-    font-family:var(--font-mono); font-size:0.7rem; color:var(--amber);
-    letter-spacing:0.04em; margin-top:10px;
-  }
-  @media (max-width:560px){
-    #offduty .drawer-tabs{ gap:6px 18px; }
   }
 
   /* ---------- CONTACT ---------- */
@@ -563,14 +496,14 @@
     position:fixed; right:18px; bottom:18px; z-index:40;
     width:42px; height:42px;
     display:flex; align-items:center; justify-content:center;
-    background:var(--bg-panel); color:var(--amber);
+    background:var(--bg-panel); color:var(--accent);
     border:1px solid var(--line-dim);
     text-decoration:none; font-size:1.1rem;
     opacity:0; visibility:hidden;
     transition:opacity .2s ease, visibility .2s ease, border-color .2s ease;
   }
   .to-top.show{ opacity:1; visibility:visible; }
-  .to-top:hover{ border-color:var(--amber); }
+  .to-top:hover{ border-color:var(--accent); }
 
   @media (max-width:980px){
     .hero-inner{
@@ -628,7 +561,6 @@
     .corner-bl,.corner-br{ bottom:12px; }
 
     .project-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .offduty-grid{ grid-template-columns:1fr; }
   }
 
   @media (max-width:560px){
@@ -658,8 +590,6 @@
 
     .tl-item{ padding-left:26px; padding-bottom:34px; }
     .tl-list{ max-width:none; }
-
-    .offduty-card{ padding:24px; }
     .contact-note{ font-size:0.98rem; }
 
     .titleblock{
@@ -670,7 +600,7 @@
     }
   }
 
-  .chip.rode{ color:var(--amber); border-color:var(--amber); }
+  .chip.rode{ color:var(--accent); border-color:var(--accent); }
   .log-chips{ justify-content:flex-end; }
   @media (max-width:560px){ .log-chips{ justify-content:flex-start; } }
 
@@ -680,7 +610,7 @@
     position:fixed; inset:0; z-index:200;
     background:var(--bg);
     display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); color:var(--cyan);
+    font-family:var(--font-mono); color:var(--pen);
     font-size:0.85rem; letter-spacing:0.1em;
     transition:opacity .4s ease;
   }
@@ -688,7 +618,7 @@
   .boot-line{ opacity:0; animation:boot-appear .25s ease forwards; }
   .boot-line:nth-child(1){ animation-delay:.05s; }
   .boot-line:nth-child(2){ animation-delay:.3s; }
-  .boot-line:nth-child(3){ animation-delay:.55s; color:var(--amber); }
+  .boot-line:nth-child(3){ animation-delay:.55s; color:var(--accent); }
   @keyframes boot-appear{ to{ opacity:1; } }
 
   /* ---------- TELEMETRY STRIP ---------- */
@@ -696,7 +626,7 @@
     font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em;
     color:var(--muted); display:flex; gap:16px; white-space:nowrap;
   }
-  .telemetry span b{ color:var(--cyan); font-weight:500; }
+  .telemetry span b{ color:var(--pen); font-weight:500; }
   @media (max-width:760px){
     .telemetry{ font-size:0.62rem; gap:8px; letter-spacing:0.04em; }
     .telemetry .telemetry-alt{ display:none; }
@@ -721,7 +651,7 @@
     justify-content:center;
 
     background:var(--bg-panel);
-    color:var(--cyan);
+    color:var(--pen);
     border:1px solid var(--line-dim);
 
     font-family:var(--font-mono);
@@ -739,8 +669,8 @@
 
   .terminal-trigger:hover{
     opacity:1;
-    color:var(--amber);
-    border-color:var(--amber);
+    color:var(--accent);
+    border-color:var(--accent);
     transform:translateY(-2px);
   }
 
@@ -755,7 +685,7 @@
 
     padding:24px;
 
-    background:rgba(4,14,25,0.76);
+    background:rgba(10,9,8,0.7);
     backdrop-filter:blur(7px);
 
     opacity:0;
@@ -780,7 +710,7 @@
     display:flex;
     flex-direction:column;
 
-    background:#071a2d;
+    background:#12110f;
     border:1px solid var(--line-dim);
 
     box-shadow:
@@ -823,8 +753,7 @@
     width:7px;
     height:7px;
     border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 8px rgba(127,211,232,.45);
+    background:var(--pen);
   }
 
   .terminal-close{
@@ -840,7 +769,7 @@
   }
 
   .terminal-close:hover{
-    color:var(--amber);
+    color:var(--accent);
   }
 
   .terminal-output{
@@ -868,7 +797,7 @@
   }
 
   .terminal-line.command{
-    color:var(--cyan);
+    color:var(--pen);
   }
 
   .terminal-line.system{
@@ -876,7 +805,7 @@
   }
 
   .terminal-line.success{
-    color:var(--amber);
+    color:var(--accent);
   }
 
   .terminal-line.error{
@@ -896,7 +825,7 @@
   }
 
   .terminal-prompt-label{
-    color:var(--cyan);
+    color:var(--pen);
     white-space:nowrap;
   }
 
@@ -914,16 +843,16 @@
     color:var(--line);
 
     font:inherit;
-    caret-color:var(--amber);
+    caret-color:var(--accent);
   }
 
   .terminal-input::selection{
-    background:var(--cyan);
+    background:var(--pen);
     color:var(--bg);
   }
 
   .terminal-cursor{
-    color:var(--amber);
+    color:var(--accent);
   }
 
   @media (max-width:560px){
@@ -960,15 +889,35 @@
   }
 
 
-      #offduty .redact{
-  background:var(--line); color:var(--line);
-  padding:2px 10px; cursor:not-allowed;
-  transition:background .2s ease, color .2s ease;
-}
-#offduty .redact:hover,
-#offduty .redact:focus-visible{ background:transparent; color:var(--amber); }
 
 
+
+
+  /* ================= SIDE-RAIL LAYOUT (desktop) ================= */
+  @media (min-width:1000px){
+    body{ display:grid; grid-template-columns:400px minmax(0,1fr); align-items:start; }
+    .nav{ left:400px; }
+    .nav-inner{ max-width:none; padding-left:48px; padding-right:48px; }
+    .hero{
+      grid-column:1; grid-row:1 / span 3; position:sticky; top:0; height:100svh; min-height:0;
+      overflow-y:auto; padding:56px 0 88px; border-right:1px solid var(--line-dim); align-items:flex-start;
+    }
+    .hero .corner{ display:none; }
+    .hero-inner{ grid-template-columns:1fr; gap:32px; padding:0 36px; max-width:none; align-content:start; }
+    .hero-name{ font-size:clamp(1.7rem,2.6vw,2.3rem); }
+    .hero-role{ max-width:none; }
+    .hero-art{ min-height:0; }
+    main{ grid-column:2; grid-row:1; padding-top:64px; min-width:0; }
+    .titleblock{ grid-column:2; grid-row:2; max-width:none; margin:0; width:100%; }
+    main .wrap{ max-width:none; margin:0; padding:0 48px; }
+    main .section:first-child{ border-top:0; }
+  }
+
+  /* terminal button: icon + text label */
+  .terminal-trigger{ width:auto; height:42px; padding:0 14px 0 12px; gap:8px; opacity:.85; border-radius:2px; }
+  .terminal-trigger .tt-icon{ font-weight:600; }
+  .terminal-trigger .tt-label{ font-size:.74rem; letter-spacing:.08em; }
+  @media (max-width:560px){ .terminal-trigger{ width:auto; height:38px; padding:0 12px 0 10px; } .terminal-trigger .tt-label{ font-size:.68rem; } }
 </style>
 </head>
 <body>
@@ -993,7 +942,6 @@
       <li><a href="#trajectory">TRAJECTORY</a></li>
       <li><a href="#projects">PROJECTS</a></li>
       <li><a href="#skills">SPECIFICATIONS</a></li>
-      <li><a href="#offduty">OFF-DUTY</a></li>
       <li><a href="#contact">CONTACT</a></li>
     </ul>
     <button class="nav-toggle mono" id="navToggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
@@ -1044,7 +992,7 @@
         <path class="plan-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="7 7" mask="url(#routeMask)"></path>
         <path id="flown" class="flown-path" d="M60,470 C 220,440 360,300 540,90" stroke-dasharray="0 2000" mask="url(#routeMask)"></path>
 
-        <circle cx="540" cy="90" r="5" style="fill:var(--cyan)"></circle>
+        <circle cx="540" cy="90" r="5" style="fill:var(--pen)"></circle>
 
         <g class="wp" tabindex="0" role="button" data-i="0" data-x="60" data-y="470" data-a="79.4" aria-label="Waypoint 1">
           <circle class="hit" cx="60" cy="470" r="30"></circle>
@@ -1105,7 +1053,7 @@
         </div>
 
         <dl class="spec-sheet">
-          <div class="spec-row"><dt>LOCATION</dt><dd>Kathmandu, Nepal</dd></div>
+          <div class="spec-row"><dt>LOCATION</dt><dd>KATHMANDU, NEPAL</dd></div>
           <div class="spec-row"><dt>PRIOR SCHOOL</dt><dd>Siddhartha B.S.S, Damak, Jhapa — through Grade 12</dd></div>
           <div class="spec-row"><dt>NEB RESULT</dt><dd>A+</dd></div>
           <div class="spec-row"><dt>CURRENT PROGRAM</dt><dd>BE Aerospace Engineering</dd></div>
@@ -1280,180 +1228,10 @@
     </div>
   </section>
 
-  <!-- SHEET 05: OFF-DUTY ARCHIVE -->
-  <section class="section" id="offduty">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 05 — OFF-DUTY ARCHIVE</span>
-        <h2>The human behind the engineer</h2>
-      </div>
-
-      <!--
-        HOW TO ADD AN ENTRY: copy any <article> block below, paste it inside the
-        right panel's <div class="project-grid archive-grid">, edit the text.
-        Optional bits (delete the line if you don't want it):
-          status-stamp  = dashed corner label
-          meter         = impact bar (█ filled, ░ empty, 5 total)
-          meter stalled = stalled-build bar (10 total)
-          chip-row      = small tags
-      -->
-
-      <div class="reveal">
-
-        <!-- radios must stay BEFORE the tabs and panels -->
-        <input type="radio" name="drawer" id="d-books" class="drawer-radio" checked>
-        <input type="radio" name="drawer" id="d-games" class="drawer-radio">
-        <input type="radio" name="drawer" id="d-screen" class="drawer-radio">
-        <input type="radio" name="drawer" id="d-hobbies" class="drawer-radio">
-
-        <div class="drawer-tabs">
-          <label class="drawer-tab" for="d-books">BOOKS READ</label>
-          <label class="drawer-tab" for="d-games">GAMES PLAYED</label>
-          <label class="drawer-tab" for="d-screen">MOVIES &amp; SERIES</label>
-          <label class="drawer-tab" for="d-hobbies">HOBBIES</label>
-        </div>
-
-                <!-- ===== BOOKS ===== -->
-        <div class="drawer-panel" id="p-books">
-          <div class="project-grid archive-grid">
-
-            <article class="project-card">
-              <span class="fig-tag">BOOK. 01</span>
-              <span class="status-stamp mono">READING</span>
-              <h3>Animal Farm</h3>
-              <p>George Orwell.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">BOOK. 02</span>
-              <h3>The Theory of Everything</h3>
-              <p>Stephen Hawking.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">BOOK. 03</span>
-              <h3>Little Kids First Big Book of Space</h3>
-              <p>Read this as an 8 year old kid and it got me interested into astronomy and space.</p>
-            </article>
-
-          </div>
-        </div>
-
-        <!-- ===== GAMES ===== -->
-        <div class="drawer-panel" id="p-games">
-          <div class="project-grid archive-grid">
-
-            <article class="project-card">
-              <span class="fig-tag">GAME. 01</span>
-              <h3>Elden Ring</h3>
-              <p>My favourite piece of art.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">GAME. 02</span>
-              <h3>Ghost of Tsushima</h3>
-              <p>Such a beautiful game.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">GAME. 03</span>
-              <h3>Uncharted 4</h3>
-              <p>First ever I played.</p>
-            </article>
-
-     
-
-          </div>
-        </div>
-
-        <!-- ===== MOVIES & SERIES ===== -->
-        <div class="drawer-panel" id="p-screen">
-          <div class="project-grid archive-grid">
-
-            <article class="project-card">
-              <span class="fig-tag">FILM. 01</span>
-              <h3>Interstellar</h3>
-              <p>Made me fall in love with space and time.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">FILM. 02</span>
-              <h3>Ironman</h3>
-              <p>One of my many inspirations to be an engineer.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">SERIES. 01</span>
-              <h3>One Piece</h3>
-              <p>The series that inspired me to pursue my dreams.</p>
-            </article>
-
-          </div>
-        </div>
-
-
-
-        <!-- ===== HOBBIES ===== -->
-        <div class="drawer-panel" id="p-hobbies">
-          <div class="project-grid archive-grid">
-
-            <article class="project-card">
-              <span class="fig-tag">FOOTBALL</span>
-              <h3>Liverpool FC</h3>
-              <p>You'll never walk alone.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">MOTORSPORT</span>
-              <h3>Formula 1</h3>
-              <p>Never missed a GP, especially not when Lewis is on the grid.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">HOBBY</span>
-              <span class="status-stamp mono">CLASSIFIED</span>
-              <h3>Chess</h3>
-              <p>I've been playing since I was a kid but let's not reveal my elo.</p>
-              <div class="meter">
-                <span>ELO</span>
-                <span class="redact" tabindex="0">NOPE</span>
-              </div>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">HOBBY</span>
-              <h3>Pi</h3>
-              <p>I can recite 101 digits of pi by memory. Total nerd stuff.</p>
-            </article>
-
-            <article class="project-card">
-              <span class="fig-tag">RABBIT HOLE</span>
-              <h3>Smart people explaining stuff</h3>
-              <p>Veritasium, Brian Cox, Vsauce, Nile Red.</p>
-              <div class="chip-row" style="margin-top:14px;"><span class="chip">YouTube</span></div>
-            </article>
-
-
-          </div>
-        </div>
-
-      </div>
-
-      <div class="reveal" style="margin-top:48px; max-width:520px;">
-        <span class="fig-tag">NOW · UPDATED <span id="nowUpdated">3 OCT 2026</span></span>
-        <dl class="spec-sheet">
-          <div class="spec-row"><dt>BUILDING</dt><dd id="nowBuilding">Planning a small wind tunnel. Adding stuff to this site.</dd></div>
-          <div class="spec-row"><dt>READING</dt><dd id="nowReading">Animal Farm - George Orwell</dd></div>
-          <div class="spec-row"><dt>WATCHING</dt><dd id="nowWatching">Insomnia - Christopher Nolan</dd></div>
-        </dl>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="contact">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="sheet-tag">SHEET 06 — CONTACT</span>
+        <span class="sheet-tag">SHEET 05 — CONTACT</span>
         <h2>Get in touch</h2>
       </div>
         <!---
@@ -1476,7 +1254,7 @@
   <span>DWG NO. AGN-2026-01</span>
   <span>SCALE NTS</span>
   <span>REV A · UPDATED OCT 2026</span>
-  <span>SHEET 06 OF 06</span>
+  <span>SHEET 05 OF 05</span>
 </footer>
 
 <a href="#top" class="to-top mono" id="toTop" aria-label="Back to top">↑</a>
@@ -1489,7 +1267,7 @@
   aria-label="Open terminal"
   title="Open terminal (press ~)"
 >
-  &gt;_
+  <span class="tt-icon">&gt;_</span><span class="tt-label">terminal</span>
 </button>
 
 <div
@@ -1681,18 +1459,26 @@ var reduceMotion = false;
     setInterval(updateTelemetryClock, 1000);
   }
 
-  // highlight current section in nav
+  // highlight current section in nav (scroll-based, so it never misses short sections or the page end)
   var navAnchors = document.querySelectorAll('.nav-links a');
-  var sectionObs = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        navAnchors.forEach(function(a){
-          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-        });
-      }
+  var spySections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var spyTick = false;
+  function updateSpy(){
+    spyTick = false;
+    var line = window.innerHeight * 0.35, cur = null;
+    spySections.forEach(function(sec){ if(sec.getBoundingClientRect().top <= line) cur = sec.id; });
+    if(spySections.length && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4){
+      cur = spySections[spySections.length - 1].id;
+    }
+    navAnchors.forEach(function(a){
+      a.classList.toggle('active', !!cur && a.getAttribute('href') === '#' + cur);
     });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  document.querySelectorAll('#top, main section[id]').forEach(function(s){ sectionObs.observe(s); });
+  }
+  function queueSpy(){ if(!spyTick){ spyTick = true; requestAnimationFrame(updateSpy); } }
+  window.addEventListener('scroll', queueSpy, { passive: true });
+  window.addEventListener('resize', queueSpy);
+  window.addEventListener('load', updateSpy);
+  updateSpy();
 
   // back to top
   var toTop = document.getElementById('toTop');
@@ -2340,23 +2126,6 @@ var reduceMotion = false;
 })();
 
 
-
-
-
-
-      // NOW block from now.json
-fetch('now.json', { cache: 'no-cache' })
-  .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-  .then(function(d){
-    var map = { nowUpdated:'updated', nowBuilding:'building', nowReading:'reading', nowWatching:'watching' };
-    Object.keys(map).forEach(function(id){
-      var el = document.getElementById(id);
-      if (el && d[map[id]]) el.textContent = d[map[id]];
-    });
-  })
-  .catch(function(){ /* keep the HTML fallback */ });
-
-
 // own smooth scroll for in-page links (works even when the OS disables native smooth scrolling)
 (function(){
   function ease(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
@@ -2385,7 +2154,7 @@ fetch('now.json', { cache: 'no-cache' })
     e.preventDefault();
     var y = id === '#top' ? 0 : el.getBoundingClientRect().top + window.scrollY;
     glideTo(y);
-    history.pushState(null, '', id);
+    try { history.pushState(null, '', id); } catch (err) { /* sandboxed preview (about:srcdoc) blocks pushState; scrolling still works */ }
   });
 })();
 
