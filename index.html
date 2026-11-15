@@ -422,6 +422,11 @@
     flex:0 0 auto;
     white-space:nowrap;
   }
+  .spec-note{
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.1em;
+    color:var(--muted); margin:0 0 18px; padding-bottom:12px;
+    border-bottom:1px dashed var(--line-dim);
+  }
   @media (max-width:420px){
     .spec-tree-panel{ padding:22px 18px; font-size:0.82rem; }
     .skill-bar{ letter-spacing:1.5px; }
@@ -1212,6 +1217,7 @@
       </div>
 
       <div class="spec-tree-panel reveal">
+        <div class="spec-note">SELF-RATED · SCALE OF 10</div>
         <div class="spec-tree-group">
           <span class="tree-category">SOFTWARE</span>
           <div class="tree-row"><span class="tree-branch">├── </span><span class="tree-item">Python       </span><span class="skill-bar" data-level="5" data-max="10" role="img" aria-label="Python: 5 out of 10">░░░░░░░░░░</span></div>
@@ -1519,11 +1525,20 @@ var reduceMotion = false;
   var commandHistory = [];
   var historyIndex = -1;
 
+  // everything behind the terminal becomes unreachable (no Tab, no screen-reader access) while it's open
+  var inertTargets = document.querySelectorAll('.nav, .hero, main, .titleblock, .to-top, .terminal-trigger');
+  function setBackgroundInert(on){
+    inertTargets.forEach(function(el){
+      if(on){ el.setAttribute('inert',''); } else { el.removeAttribute('inert'); }
+    });
+  }
+
   function openTerminal(){
 
     terminalOverlay.classList.add('open');
     terminalOverlay.setAttribute('aria-hidden','false');
     document.documentElement.classList.add('terminal-open');
+    setBackgroundInert(true);
 
     terminalInput.value = '';
 
@@ -1538,8 +1553,12 @@ var reduceMotion = false;
     terminalOverlay.classList.remove('open');
     terminalOverlay.setAttribute('aria-hidden','true');
     document.documentElement.classList.remove('terminal-open');
+    setBackgroundInert(false);
 
     terminalInput.blur();
+
+    // give focus back to the button that opened it
+    terminalTrigger.focus({ preventScroll:true });
 
   }
 
@@ -1674,6 +1693,7 @@ var reduceMotion = false;
 
       print('');
       print('ENGINEERING SPECIFICATION','success');
+      print('(self-rated, scale of 10)','system');
       print('');
       print('SOFTWARE');
       print('  Python       █████░░░░░');
@@ -1987,11 +2007,71 @@ var reduceMotion = false;
     }
   );
 
+  // keep keyboard focus inside the terminal: Shift+Tab on the close button wraps to the input
+  terminalClose.addEventListener('keydown', function(event){
+    if(event.key === 'Tab' && event.shiftKey){
+      event.preventDefault();
+      terminalInput.focus();
+    }
+  });
+
+  // ---------------- TAB AUTOCOMPLETE ----------------
+  var completable = [
+    'help','about','projects','skills','contact','github','status',
+    'date','neofetch','whoami','sudo','rm -rf','clear','exit'
+  ];
+
+  function longestCommonPrefix(list){
+    var prefix = list[0];
+    for(var i = 1; i < list.length; i++){
+      while(list[i].indexOf(prefix) !== 0){
+        prefix = prefix.slice(0, -1);
+      }
+    }
+    return prefix;
+  }
+
+  function autocomplete(){
+    var typed = terminalInput.value.replace(/^\s+/, '').toLowerCase();
+    if(!typed){ return; }
+
+    var matches = completable.filter(function(name){
+      return name.indexOf(typed) === 0;
+    });
+
+    if(matches.length === 0){ return; }
+
+    if(matches.length === 1){
+      terminalInput.value = matches[0];
+      return;
+    }
+
+    var common = longestCommonPrefix(matches);
+
+    if(common.length > typed.length){
+      terminalInput.value = common;
+    }else{
+      printCommand(terminalInput.value);
+      print(matches.join('   '), 'system');
+    }
+  }
+
   // Terminal input
 
   terminalInput.addEventListener(
     'keydown',
     function(event){
+
+      // Tab → autocomplete (Tab never leaves the input while the terminal is open)
+      if(event.key === 'Tab' && !event.shiftKey){
+
+        event.preventDefault();
+
+        autocomplete();
+
+        return;
+
+      }
 
       if(event.key === 'Enter'){
 
