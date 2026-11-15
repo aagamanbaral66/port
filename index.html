@@ -697,6 +697,12 @@
       visibility .2s ease;
   }
 
+  html.terminal-open,
+  html.terminal-open body{ overflow:hidden; }
+
+  .terminal-overlay{ overscroll-behavior:contain; }
+  .terminal-output{ overscroll-behavior:contain; }
+
   .terminal-overlay.open{
     opacity:1;
     visibility:visible;
@@ -895,8 +901,9 @@
 
   /* ================= SIDE-RAIL LAYOUT (desktop) ================= */
   @media (min-width:1000px){
-    body{ display:grid; grid-template-columns:400px minmax(0,1fr); align-items:start; }
-    .nav{ left:400px; }
+    :root{ --rail:400px; }
+    body{ display:grid; grid-template-columns:var(--rail) minmax(0,1fr); align-items:start; }
+    .nav{ left:var(--rail); }
     .nav-inner{ max-width:none; padding-left:48px; padding-right:48px; }
     .hero{
       grid-column:1; grid-row:1 / span 3; position:sticky; top:0; height:100svh; min-height:0;
@@ -1517,6 +1524,7 @@ var reduceMotion = false;
 
     terminalOverlay.classList.add('open');
     terminalOverlay.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('terminal-open');
 
     terminalInput.value = '';
 
@@ -1530,6 +1538,7 @@ var reduceMotion = false;
 
     terminalOverlay.classList.remove('open');
     terminalOverlay.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('terminal-open');
 
     terminalInput.blur();
 
@@ -1887,6 +1896,16 @@ var reduceMotion = false;
 
   }
 
+  // block wheel/touch scrolling of the page behind the terminal
+  // (only the terminal output itself may scroll)
+  function blockPageScroll(event){
+    if(!terminalOverlay.classList.contains('open')){ return; }
+    if(terminalOutput.contains(event.target)){ return; }
+    event.preventDefault();
+  }
+  terminalOverlay.addEventListener('wheel', blockPageScroll, { passive:false });
+  terminalOverlay.addEventListener('touchmove', blockPageScroll, { passive:false });
+
   // Open button
 
   terminalTrigger.addEventListener(
@@ -2126,37 +2145,7 @@ var reduceMotion = false;
 })();
 
 
-// own smooth scroll for in-page links (works even when the OS disables native smooth scrolling)
-(function(){
-  function ease(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 
-  function glideTo(targetY){
-    var startY = window.scrollY;
-    var dist = targetY - startY;
-    var dur = Math.min(900, Math.max(350, Math.abs(dist) * 0.5));
-    var t0 = null;
-    function step(now){
-      if (t0 === null) t0 = now;
-      var p = Math.min(1, (now - t0) / dur);
-      window.scrollTo({ top: startY + dist * ease(p), behavior: 'instant' });
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var id = a.getAttribute('href');
-    if (id.length < 2 && id !== '#top') return;
-    var el = id === '#top' ? document.body : document.querySelector(id);
-    if (!el) return;
-    e.preventDefault();
-    var y = id === '#top' ? 0 : el.getBoundingClientRect().top + window.scrollY;
-    glideTo(y);
-    try { history.pushState(null, '', id); } catch (err) { /* sandboxed preview (about:srcdoc) blocks pushState; scrolling still works */ }
-  });
-})();
 
   
 </script>
