@@ -430,6 +430,31 @@
     .skill-bar{ letter-spacing:1.5px; }
   }
 
+  /* ---------- CREDENTIALS ---------- */
+  .cred-block{ margin-top:36px; }
+  .cred-label{
+    display:block; font-family:var(--font-mono); font-size:0.7rem;
+    letter-spacing:0.1em; color:var(--accent); margin-bottom:14px;
+  }
+  .credential{
+    display:flex; align-items:center; gap:18px;
+    max-width:520px;
+    padding:18px 22px;
+    background:var(--bg-panel);
+    border:1px solid var(--line-dim);
+    text-decoration:none;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .credential:hover{ transform:translateY(-4px); border-color:var(--pen); box-shadow:0 12px 28px var(--shadow); }
+  .credential img{ width:64px; height:64px; flex:0 0 auto; display:block; }
+  .credential h3{ font-family:var(--font-body); font-weight:600; font-size:1.02rem; margin-bottom:4px; color:var(--line); }
+  .credential p{ font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.06em; color:var(--muted); }
+  .credential p span{ color:var(--accent); }
+  @media (max-width:560px){
+    .credential{ padding:16px; gap:14px; }
+    .credential img{ width:52px; height:52px; }
+  }
+
   /* ---------- LAB BENCH ---------- */
   .lab-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; }
   .lab-panel{
@@ -1235,6 +1260,23 @@
           <div class="tree-row"><span class="tree-branch">└── </span><span class="tree-item">Physics      </span><span class="skill-bar" data-level="8" data-max="10" role="img" aria-label="Physics: 8 out of 10">░░░░░░░░░░</span></div>
         </div>
       </div>
+
+      <!-- CREDENTIALS -->
+      <div class="cred-block reveal">
+        <span class="cred-label">CERTIFICATIONS</span>
+        <a class="credential"
+           href="https://www.credly.com/badges/6471360c-70fa-49c9-a49d-94936c23a0dd/public_url"
+           target="_blank" rel="noopener noreferrer">
+          <img src="assets/nasa-open-science-badge.png"
+               alt="NASA Open Science Essentials badge"
+               width="64" height="64" loading="lazy"
+               onerror="this.style.display='none'">
+          <div>
+            <h3>NASA Open Science Essentials</h3>
+            <p>NASA · NOV 2026 · <span>VERIFY ↗</span></p>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1714,6 +1756,9 @@ var reduceMotion = false;
       print('PHYSICS & MATH');
       print('  Mathematics  █████████░');
       print('  Physics      ████████░░');
+      print('');
+      print('CERTIFICATIONS');
+      print('  NASA Open Science Essentials (Nov 2026)');
       print('');
 
       return;
