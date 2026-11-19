@@ -412,7 +412,7 @@
   }
   .tree-branch{ color:var(--muted); flex:0 0 auto; }
   .tree-category{ color:var(--accent); font-weight:600; letter-spacing:0.08em; display:block; margin-bottom:2px; }
-  .tree-item{ color:var(--line); flex:0 0 auto; white-space:nowrap; }
+  .tree-item{ color:var(--line); flex:0 0 auto; white-space:pre; }
   .skill-bar{
     color:var(--pen);
     letter-spacing:2px;
@@ -953,6 +953,41 @@
   .terminal-trigger .tt-icon{ font-weight:600; }
   .terminal-trigger .tt-label{ font-size:.74rem; letter-spacing:.08em; }
   @media (max-width:560px){ .terminal-trigger{ width:auto; height:38px; padding:0 12px 0 10px; } .terminal-trigger .tt-label{ font-size:.68rem; } }
+
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{
+      animation-duration:.01ms !important; animation-delay:0s !important; animation-iteration-count:1 !important;
+      transition-duration:.01ms !important; transition-delay:0s !important;
+    }
+    .wp .pulse{ display:none; }
+  }
+
+  /* ---------- TOUCH SCREENS ---------- */
+  /* hover styles shouldn't stick after a tap */
+  @media (hover:none){
+    .nav-links a:not(.active):hover{ color:var(--muted); border-color:transparent; }
+    .btn-primary:hover{ background:var(--accent); color:var(--bg); }
+    .project-card:hover, .credential:hover{ transform:none; box-shadow:none; border-color:var(--line-dim); }
+    .wp:not(.here):hover .ring{ fill:var(--bg); stroke:var(--pen); }
+    .wp:not(.on):not(.here):hover text{ fill:var(--muted); opacity:.65; }
+  }
+  /* ~44px tap targets, without changing how things look */
+  @media (pointer:coarse){
+    .nav-toggle, .nav-badge{ position:relative; }
+    .nav-toggle::after, .nav-badge::after{ content:""; position:absolute; inset:-6px -4px; }
+    .to-top{ width:44px; height:44px; }
+    .terminal-trigger{ height:44px; }
+    .terminal-close{ min-width:44px; min-height:44px; }
+    .terminal-input{ font-size:16px; } /* under 16px, iOS zooms the page on focus */
+    .wp-link{ padding:14px 0; margin:-4px 0 -14px; }
+    .spec-row a{ display:inline-block; padding:11px 0; margin:-11px 0; }
+  }
+  @media (max-width:560px){
+    .terminal-window{ max-height:100%; }
+    .terminal-output{ min-height:0; }
+  }
 </style>
 </head>
 <body>
@@ -1030,23 +1065,23 @@
         <circle cx="540" cy="90" r="5" style="fill:var(--pen)"></circle>
 
         <g class="wp" tabindex="0" role="button" data-i="0" data-x="60" data-y="470" data-a="79.4" aria-label="Waypoint 1">
-          <circle class="hit" cx="60" cy="470" r="30"></circle>
+          <circle class="hit" cx="60" cy="470" r="44"></circle>
           <circle class="ring" cx="60" cy="470" r="7"></circle>
           <text x="60" y="452" text-anchor="start">WP01</text>
         </g>
         <g class="wp" tabindex="0" role="button" data-i="1" data-x="216" data-y="405" data-a="57.2" aria-label="Waypoint 2">
-          <circle class="hit" cx="216" cy="405" r="30"></circle>
+          <circle class="hit" cx="216" cy="405" r="44"></circle>
           <circle class="ring" cx="216" cy="405" r="7"></circle>
           <text x="230" y="428" text-anchor="start">WP02</text>
         </g>
         <g class="wp here" tabindex="0" role="button" data-i="2" data-x="371" data-y="275" data-a="45.2" aria-label="Waypoint 3">
-          <circle class="hit" cx="371" cy="275" r="30"></circle>
+          <circle class="hit" cx="371" cy="275" r="44"></circle>
           <circle class="pulse" cx="371" cy="275" r="7"></circle>
           <circle class="ring" cx="371" cy="275" r="7"></circle>
           <text x="385" y="298" text-anchor="start">WP03</text>
         </g>
         <g class="wp future" tabindex="0" role="button" data-i="3" data-x="540" data-y="90" data-a="40.6" aria-label="Waypoint 4">
-          <circle class="hit" cx="540" cy="90" r="30"></circle>
+          <circle class="hit" cx="540" cy="90" r="44"></circle>
           <circle class="ring" cx="540" cy="90" r="7"></circle>
           <text x="526" y="152" text-anchor="end">WP04</text>
         </g>
@@ -1370,6 +1405,7 @@
         autocorrect="off"
         autocapitalize="off"
         spellcheck="false"
+        enterkeyhint="send"
         aria-label="Terminal command"
       >
 
@@ -1395,7 +1431,7 @@
   });
 
   // scroll reveal
-var reduceMotion = false;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var revealEls = document.querySelectorAll('.reveal');
   if(reduceMotion){
     revealEls.forEach(function(el){ el.classList.add('in-view'); });
@@ -1543,7 +1579,7 @@ var reduceMotion = false;
   document.querySelectorAll('a[href="#top"]').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
-      window.scrollTo({ top:0, behavior:'smooth' });
+      window.scrollTo({ top:0, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
 
@@ -1572,6 +1608,23 @@ var reduceMotion = false;
   var commandHistory = [];
   var historyIndex = -1;
 
+  // phone keyboard: keep the terminal inside the part of the screen that's actually visible
+  var vv = window.visualViewport;
+  function fitToVisible(){
+    if(!vv){ return; }
+    if(terminalOverlay.classList.contains('open')){
+      terminalOverlay.style.top = vv.offsetTop + 'px';
+      terminalOverlay.style.bottom = 'auto';
+      terminalOverlay.style.height = vv.height + 'px';
+    }else{
+      terminalOverlay.style.top = terminalOverlay.style.bottom = terminalOverlay.style.height = '';
+    }
+  }
+  if(vv){
+    vv.addEventListener('resize', fitToVisible);
+    vv.addEventListener('scroll', fitToVisible);
+  }
+
   // everything behind the terminal becomes unreachable (no Tab, no screen-reader access) while it's open
   var inertTargets = document.querySelectorAll('.nav, .hero, main, .titleblock, .to-top, .terminal-trigger');
   function setBackgroundInert(on){
@@ -1586,6 +1639,7 @@ var reduceMotion = false;
     terminalOverlay.setAttribute('aria-hidden','false');
     document.documentElement.classList.add('terminal-open');
     setBackgroundInert(true);
+    fitToVisible();
 
     terminalInput.value = '';
 
@@ -1601,6 +1655,7 @@ var reduceMotion = false;
     terminalOverlay.setAttribute('aria-hidden','true');
     document.documentElement.classList.remove('terminal-open');
     setBackgroundInert(false);
+    fitToVisible();
 
     terminalInput.blur();
 
@@ -1725,7 +1780,7 @@ var reduceMotion = false;
 
         if(section){
           section.scrollIntoView({
-            behavior:'smooth'
+            behavior: reduceMotion ? 'auto' : 'smooth'
           });
         }
 
