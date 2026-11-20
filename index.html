@@ -1328,7 +1328,7 @@
       <p class="contact-note reveal">Open to talking about aerospace projects, Pulchowk work, or anything on the electronics bench. Reach me through any of these.</p>
     -->
       <dl class="spec-sheet reveal" style="max-width:520px;">
-        <div class="spec-row"><dt>EMAIL</dt><dd><a href="mailto:aero@aagamanbaral.com.np" target="_blank" rel="noopener me">aero@aagamanbaral.com.np</a></dd></div>
+        <div class="spec-row"><dt>EMAIL</dt><dd><a id="emailLink" href="#contact" rel="noopener me">aero [at] aagamanbaral [dot] com [dot] np</a></dd></div>
         <div class="spec-row"><dt>GITHUB</dt><dd><a href="https://github.com/aagamanbaral66" target="_blank" rel="noopener me">github.com/aagamanbaral66</a></dd></div>
         <div class="spec-row"><dt>LINKEDIN</dt><dd><a href="https://linkedin.com/in/aagamanbaral" target="_blank" rel="noopener me">linkedin.com/in/aagamanbaral</a></dd></div>
       </dl>
@@ -1442,6 +1442,14 @@
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // email is assembled here so scrapers reading the raw HTML don't find it
+  var MAIL = ['aero', 'aagamanbaral.com.np'].join('@');
+  var emailLink = document.getElementById('emailLink');
+  if(emailLink){
+    emailLink.href = 'mailto:' + MAIL;
+    emailLink.textContent = MAIL;
+  }
 
   // scroll reveal
 var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1786,7 +1794,7 @@ var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       print('CONTACT CHANNELS','success');
       print('');
       print('EMAIL');
-      print('  aero@aagamanbaral.com.np');
+      print('  ' + MAIL);
       print('');
       print('GITHUB');
       print('  github.com/aagamanbaral66');
